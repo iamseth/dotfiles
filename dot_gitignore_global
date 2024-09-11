@@ -1,0 +1,6 @@
+.idea
+.envrc
+.local
+coverage.out
+.ruby-version
+.prettierignore

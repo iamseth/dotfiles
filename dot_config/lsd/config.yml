@@ -1,0 +1,17 @@
+blocks:
+  - git
+  - permission
+  - user
+  - size
+  - date
+  - name
+
+sorting:
+  column: time
+  reverse: true
+
+total-size: false
+
+permission: octal
+
+date: "+%Y-%m-%d %H:%M:%S"
