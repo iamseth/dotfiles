@@ -1,5 +1,26 @@
-local colorscheme = "tokyonight-night"
+-- Author: iamseth
+-- Description: Neovim configuration file
+-- Usage: Place this file in ~/.config/nvim/init.lua
+--       Run :PackerInstall to install plugins
+--       Run :PackerUpdate to update plugins
+--       Run :PackerSync to sync plugins
+--       Run :PackerClean to clean up plugins
+-- Keymaps:
+--       ; - enter command mode
+--       ' - enter shell command mode
+--       <leader>s - save all buffers
+--       ff - find files using telescope
+--       fg - grep through files
+--       fb - list open buffers
+--       <leader>gg - open lazygit
+--       <leader>gf - open file under cursor
+--       <leader>_ - increase window height
+--       <leader>+ - increase window height
+--       <leader>- - increase window width
+--       <leader>= - increase window width
+--       - - open oil
 
+-- Plugins to install
 
 require('packer').startup(function(use)
   use "github/copilot.vim"                          -- AI coding
@@ -12,17 +33,19 @@ require('packer').startup(function(use)
   use "stevearc/oil.nvim"                           -- A Lua library for Neovim plugins
   use { "nvim-telescope/telescope.nvim",            -- A highly extendable fuzzy finder over lists
     requires = {
-      "nvim-lua/plenary.nvim",                      -- Utility functions (needed for telescope)	
-      "nvim-treesitter/nvim-treesitter",                 -- Nvim Treesitter configurations and abstraction layer
+      "nvim-lua/plenary.nvim",                      -- Utility functions
+      "nvim-treesitter/nvim-treesitter",            -- Treesitter configurations and abstraction layer
     }
   }
-  use { "folke/noice.nvim",                         -- A file explorer for neovim written in lua
+  use { "folke/noice.nvim",                         --  A replacement UI for Neovim
     requires = {
       "MunifTanjim/nui.nvim",                       -- A UI library for Neovim
       "rcarriga/nvim-notify",                       -- A fancy notification manager for neovim
     }
   }
 end)
+
+-- Configure Plugins
 
 require("oil").setup({
   default_file_explorer = true,
@@ -40,37 +63,13 @@ require("oil").setup({
   }
 })
 
-
-local oil = require('oil')
-vim.keymap.set('n', '-', function()
-  oil.open()
-
-  -- Wait until oil has opened, for a maximum of 1 second.
-  vim.wait(1000, function()
-    return oil.get_cursor_entry() ~= nil
-  end)
-  if oil.get_cursor_entry() then
-    oil.open_preview()
-  end
-end)
-
--- vim.keymap.set('n', '-', function()
---   oil.open()
---   require('oil.util').run_after_load(0, function()
---     oil.select({ preview = true })
---   end)
--- end)
-
-
-
 require("noice").setup({
-
   presets = {
     bottom_search = true,                            -- use a classic bottom cmdline for search
     command_palette = false,
     long_message_to_split = true,                    -- long messages will be sent to a split
     inc_rename = false,                              -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false,                          -- add a border to hover docs and signature help
+    lsp_doc_border = false,                                                   -- add a border to hover docs and signature help
   },
   routes = {
     {
@@ -83,6 +82,12 @@ require("noice").setup({
     },
   },
 })
+
+require("notify").setup({
+  stages = "static",
+  timeout = 4000,
+})
+
 
 local actions = require("telescope.actions")
 require('telescope').setup({
@@ -107,10 +112,8 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
-require('notify').setup ({
-  stages = "static",
-  timeout = 4000,
-})
+
+-- Settings
 
 vim.opt.tabstop = 2                                                           -- insert 2 spaces for a tab
 vim.opt.wrap = false                                                          -- display lines as one long line
@@ -147,22 +150,42 @@ vim.opt.shortmess:append "c"                                                  --
 vim.opt.smartindent = true                                                    -- make indenting smarter again
 vim.opt.termguicolors = true                                                  -- Enables 24-bit RGB color in the TUI. This is supported by most terminals.
 vim.opt.iskeyword:append("-")                                                 -- treats words with `-` as single words
-vim.opt.fileencoding = "utf-8                            "                    -- the encoding written to a file
+vim.opt.fileencoding = "utf-8"                                                -- the encoding written to a file
 vim.opt.clipboard = "unnamedplus"                                             -- allows neovim to access the system clipboard
-vim.cmd("colorscheme " .. colorscheme)                                        -- set colorscheme
 
+vim.cmd("colorscheme tokyonight-night")                                        -- set colorscheme
+
+-- Keymaps
+
+local oil = require('oil')
 local telescope = require('telescope.builtin')
+
 vim.keymap.set('n', ';', ':', {})                                             -- use ; to enter command mode
-vim.keymap.set('n', '<leader>w', ':wq<CR>', {})                               -- save and quit
-vim.keymap.set('n', '<leader>q', ':wqa!<CR>', {})                             -- close all buffers and quit
+vim.keymap.set('n', '\'', ':!', {})                                            
 vim.keymap.set('n', '<leader>s', ':wa!<CR>', {})                              -- save all buffers
+
 vim.keymap.set('n', 'ff', telescope.find_files, {})                           -- find files using telescope
 vim.keymap.set('n', 'fg', telescope.live_grep, {})                            -- grep through files
 vim.keymap.set('n', 'fb', telescope.buffers, {})                              -- list open buffers 
-vim.keymap.set("n", "<space>fb", ":Telescope file_browser<CR>")
+
+
+vim.keymap.set('n', 'ff', telescope.find_files, {})                           -- find files using telescope
+vim.keymap.set('n', 'fg', telescope.live_grep, {})                            -- grep through files
+vim.keymap.set('n', 'fb', telescope.buffers, {})                              -- list open buffers 
+
+
 vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>', {})                         -- open lazygit
 vim.keymap.set("n", "<leader>gf", ":e <cfile<cr>", {})                        -- open file under cursor
 vim.keymap.set("n", "<leader>_", ":resize -10<CR>", {})                       -- increase window height
 vim.keymap.set("n", "<leader>+", ":resize +10<CR>", {})                       -- increase window height
 vim.keymap.set("n", "<leader>-", ":vertical resize -10<CR>", {})              -- increase window width
 vim.keymap.set("n", "<leader>=", ":vertical resize +10<CR>", {})              -- increase window width
+vim.keymap.set('n', '-', function()
+  oil.open()
+  vim.wait(1000, function()
+    return oil.get_cursor_entry() ~= nil
+  end)
+  if oil.get_cursor_entry() then
+    oil.open_preview()
+  end
+end)
