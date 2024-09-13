@@ -23,14 +23,15 @@
 -- Plugins to install
 
 require('packer').startup(function(use)
+  use "wbthomason/packer.nvim"                      -- packer is a package manager for neovim
   use "github/copilot.vim"                          -- AI coding
   use "tpope/vim-commentary"                        -- Plugin that allows you to comment stuff out
   use "folke/tokyonight.nvim"                       -- colorscheme
   use "kdheepak/lazygit.nvim"                       -- Plugin to quickly open up a lazygit instance from within neovim
-  use "wbthomason/packer.nvim"                      -- packer is a package manager for neovim
   use "airblade/vim-gitgutter"                      -- shows a git diff in the gutter (sign column) and stages/undoes hunks
+  use "stevearc/oil.nvim"                           -- A file explorer for neovim
+  use "nvim-tree/nvim-web-devicons"                 -- Adds file type icons to neovim
   use "nvim-lualine/lualine.nvim"                   -- Fast and easy to configure neovim statusline
-  use "stevearc/oil.nvim"                           -- A Lua library for Neovim plugins
   use { "nvim-telescope/telescope.nvim",            -- A highly extendable fuzzy finder over lists
     requires = {
       "nvim-lua/plenary.nvim",                      -- Utility functions
@@ -40,8 +41,20 @@ require('packer').startup(function(use)
   use { "folke/noice.nvim",                         --  A replacement UI for Neovim
     requires = {
       "MunifTanjim/nui.nvim",                       -- A UI library for Neovim
-      "rcarriga/nvim-notify",                       -- A fancy notification manager for neovim
+      "rcarriga/nvim-notify"                        -- A fancy notification manager for neovim
     }
+  }
+  use {  "epwalsh/obsidian.nvim",                   -- A neovim plugin for the Obsidian.md note taking app
+  config = function()
+    require("obsidian").setup({
+      workspaces = {
+        {
+          name = "notes",
+          path = "~/Documents/notes"
+        }
+      }
+    })
+  end
   }
 end)
 
@@ -85,7 +98,7 @@ require("noice").setup({
 
 require("notify").setup({
   stages = "static",
-  timeout = 4000,
+  timeout = 3000,
 })
 
 
@@ -98,7 +111,15 @@ require('telescope').setup({
     },
 })
 
-require('lualine').setup()
+
+require('lualine').setup({
+  options = {
+    theme = 'tokyonight',
+    globalstatus = true,
+    icons_enabled = true,
+  },
+})
+
 
 require('nvim-treesitter.configs').setup({
   ensure_installed = { "go", "lua", "vim", "vimdoc", "query",
@@ -152,8 +173,8 @@ vim.opt.termguicolors = true                                                  --
 vim.opt.iskeyword:append("-")                                                 -- treats words with `-` as single words
 vim.opt.fileencoding = "utf-8"                                                -- the encoding written to a file
 vim.opt.clipboard = "unnamedplus"                                             -- allows neovim to access the system clipboard
-
-vim.cmd("colorscheme tokyonight-night")                                        -- set colorscheme
+vim.g.lazygit_floating_window_use_plenary = true                              -- use plenary for floating windows
+vim.cmd("colorscheme tokyonight-night")                                       -- set colorscheme
 
 -- Keymaps
 
@@ -161,25 +182,14 @@ local oil = require('oil')
 local telescope = require('telescope.builtin')
 
 vim.keymap.set('n', ';', ':', {})                                             -- use ; to enter command mode
-vim.keymap.set('n', '\'', ':!', {})                                            
+vim.keymap.set('n', '\'', ':!', {})                                           -- use ' to enter shell command mode
 vim.keymap.set('n', '<leader>s', ':wa!<CR>', {})                              -- save all buffers
-
+vim.keymap.set('n', '<leader>rc', ':luafile ~/.config/nvim/init.lua<CR>', {}) -- reload configuration
 vim.keymap.set('n', 'ff', telescope.find_files, {})                           -- find files using telescope
 vim.keymap.set('n', 'fg', telescope.live_grep, {})                            -- grep through files
 vim.keymap.set('n', 'fb', telescope.buffers, {})                              -- list open buffers 
-
-
-vim.keymap.set('n', 'ff', telescope.find_files, {})                           -- find files using telescope
-vim.keymap.set('n', 'fg', telescope.live_grep, {})                            -- grep through files
-vim.keymap.set('n', 'fb', telescope.buffers, {})                              -- list open buffers 
-
-
-vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>', {})                         -- open lazygit
-vim.keymap.set("n", "<leader>gf", ":e <cfile<cr>", {})                        -- open file under cursor
-vim.keymap.set("n", "<leader>_", ":resize -10<CR>", {})                       -- increase window height
-vim.keymap.set("n", "<leader>+", ":resize +10<CR>", {})                       -- increase window height
-vim.keymap.set("n", "<leader>-", ":vertical resize -10<CR>", {})              -- increase window width
-vim.keymap.set("n", "<leader>=", ":vertical resize +10<CR>", {})              -- increase window width
+vim.keymap.set('n', '<leader>g', ':LazyGit<CR>', {})                          -- open lazygit
+vim.keymap.set('n', '<leader>n', ':ObsidianSearch<CR>', {})                   -- open obsidian search
 vim.keymap.set('n', '-', function()
   oil.open()
   vim.wait(1000, function()
