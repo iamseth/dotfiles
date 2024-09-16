@@ -45,17 +45,25 @@ require('packer').startup(function(use)
     }
   }
   use {  "epwalsh/obsidian.nvim",                   -- A neovim plugin for the Obsidian.md note taking app
-  config = function()
-    require("obsidian").setup({
-      workspaces = {
-        {
-          name = "notes",
-          path = "~/Documents/notes"
+    config = function()
+      require("obsidian").setup({
+        workspaces = {
+          {
+            name = "notes",
+            path = "~/Documents/notes"
+          }
         }
-      }
-    })
-  end
+      })
+    end
   }
+
+  use { "akinsho/toggleterm.nvim", tag = '*',
+    config = function()
+      require("toggleterm").setup()
+    end
+  }
+
+
 end)
 
 -- Configure Plugins
@@ -190,6 +198,9 @@ vim.keymap.set('n', 'fg', telescope.live_grep, {})                            --
 vim.keymap.set('n', 'fb', telescope.buffers, {})                              -- list open buffers 
 vim.keymap.set('n', '<leader>g', ':LazyGit<CR>', {})                          -- open lazygit
 vim.keymap.set('n', '<leader>n', ':ObsidianSearch<CR>', {})                   -- open obsidian search
+
+vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', {})                       -- open toggleterm
+
 vim.keymap.set('n', '-', function()
   oil.open()
   vim.wait(1000, function()
@@ -199,3 +210,4 @@ vim.keymap.set('n', '-', function()
     oil.open_preview()
   end
 end)
+
