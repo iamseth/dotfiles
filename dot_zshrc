@@ -8,6 +8,8 @@ if [ ! -d "$ZINIT_HOME" ]; then
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
+export GPG_TTY="${TTY}"
+
 source "${ZINIT_HOME}/zinit.zsh"
 
 zinit ice depth=1; zinit light romkatv/powerlevel10k
@@ -22,7 +24,7 @@ export SAVEHIST="$HISTSIZE"
 export GOPATH="$HOME/.go"
 export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
-export GPG_TTY="$(tty)"
+
 
 alias vim='nvim'
 alias ls='lsd'
