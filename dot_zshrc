@@ -1,6 +1,10 @@
+emulate zsh -c "$(direnv export zsh)"
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+emulate zsh -c "$(direnv hook zsh)"
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -44,10 +48,9 @@ alias @downloads="cd $HOME/Downloads"
 alias @documents="cd $HOME/Documents"
 alias @tmp='cd "$(mktemp -d -t dev)"'
 
-eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 autoload -Uz compinit && compinit
 
-[ -f "$HOME/.work.zsh" ] && source "$HOME/.work.zsh"
 [ -f "$HOME/.p10k.zsh" ] && source "$HOME/.p10k.zsh"
+[ -f "$HOME/.work.zsh" ] && source "$HOME/.work.zsh"
 [ -f "$HOME/.local.zsh" ] && source "$HOME/.local.zsh"
