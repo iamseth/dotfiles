@@ -32,6 +32,13 @@ require('packer').startup(function(use)
   use "stevearc/oil.nvim"                           -- A file explorer for neovim
   use "nvim-tree/nvim-web-devicons"                 -- Adds file type icons to neovim
   use "nvim-lualine/lualine.nvim"                   -- Fast and easy to configure neovim statusline
+  use { "ray-x/go.nvim",                            -- Go development plugin for neovim
+    requires = {
+      "nvim-lua/popup.nvim",                        -- Popup API for neovim
+      "neovim/nvim-lspconfig",                      -- Quickstart configurations for the Nvim LSP client
+      "nvim-treesitter/nvim-treesitter",            -- Treesitter configurations and abstraction layer
+    }
+  }
   use { "nvim-telescope/telescope.nvim",            -- A highly extendable fuzzy finder over lists
     requires = {
       "nvim-lua/plenary.nvim",                      -- Utility functions
@@ -67,6 +74,33 @@ require('packer').startup(function(use)
 end)
 
 -- Configure Plugins
+
+
+local lspconfig = require("lspconfig")
+lspconfig.gopls.setup({
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+})
+
+-- Run gofmt + goimports on save
+
+local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimports()
+  end,
+  group = format_sync_grp,
+})
+
+require("go").setup()
 
 require("oil").setup({
   default_file_explorer = true,
