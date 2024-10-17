@@ -74,8 +74,6 @@ require('packer').startup(function(use)
 end)
 
 -- Configure Plugins
-
-
 local lspconfig = require("lspconfig")
 lspconfig.gopls.setup({
   settings = {
@@ -90,7 +88,6 @@ lspconfig.gopls.setup({
 })
 
 -- Run gofmt + goimports on save
-
 local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
@@ -234,6 +231,10 @@ vim.keymap.set('n', '<leader>g', ':LazyGit<CR>', {})                          --
 vim.keymap.set('n', '<leader>n', ':ObsidianSearch<CR>', {})                   -- open obsidian search
 
 vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', {})                       -- open toggleterm
+
+
+-- map gd to lua vim.lsp.buf.definition()
+vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})
 
 vim.keymap.set('n', '-', function()
   oil.open()
