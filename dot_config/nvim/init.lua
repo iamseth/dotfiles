@@ -231,10 +231,7 @@ vim.keymap.set('n', '<leader>g', ':LazyGit<CR>', {})                          --
 vim.keymap.set('n', '<leader>n', ':ObsidianSearch<CR>', {})                   -- open obsidian search
 
 vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', {})                       -- open toggleterm
-
-
--- map gd to lua vim.lsp.buf.definition()
-vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})
+vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})            -- go to definition
 
 vim.keymap.set('n', '-', function()
   oil.open()
