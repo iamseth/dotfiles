@@ -27,6 +27,7 @@ require('packer').startup(function(use)
   use "github/copilot.vim"                          -- AI coding
   use "tpope/vim-commentary"                        -- Plugin that allows you to comment stuff out
   use "folke/tokyonight.nvim"                       -- colorscheme
+  use "projekt0n/github-nvim-theme"                 -- colorscheme
   use "kdheepak/lazygit.nvim"                       -- Plugin to quickly open up a lazygit instance from within neovim
   use "airblade/vim-gitgutter"                      -- shows a git diff in the gutter (sign column) and stages/undoes hunks
   use "stevearc/oil.nvim"                           -- A file explorer for neovim
@@ -153,7 +154,6 @@ require('telescope').setup({
 
 require('lualine').setup({
   options = {
-    theme = 'tokyonight',
     globalstatus = true,
     icons_enabled = true,
   },
@@ -213,7 +213,7 @@ vim.opt.iskeyword:append("-")                                                 --
 vim.opt.fileencoding = "utf-8"                                                -- the encoding written to a file
 vim.opt.clipboard = "unnamedplus"                                             -- allows neovim to access the system clipboard
 vim.g.lazygit_floating_window_use_plenary = true                              -- use plenary for floating windows
-vim.cmd("colorscheme tokyonight-night")                                       -- set colorscheme
+vim.cmd("colorscheme github_dark_default")                                       -- set colorscheme
 
 -- Keymaps
 
