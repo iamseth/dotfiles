@@ -29,6 +29,7 @@ HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=1000000
 export SAVEHIST="$HISTSIZE"
 export GOPATH="$HOME/.go"
+export GOBIN="$GOPATH/bin"
 export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
 
