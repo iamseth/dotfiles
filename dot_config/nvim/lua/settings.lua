@@ -1,5 +1,3 @@
--- Settings
-
 vim.opt.tabstop = 2                                                           -- insert 2 spaces for a tab
 vim.opt.wrap = false                                                          -- display lines as one long line
 vim.opt.ruler = false                                                         -- hide the line and column number of the cursor position

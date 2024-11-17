@@ -33,9 +33,7 @@ require("lazy").setup({
     },
 
     { "ray-x/go.nvim",
-      config = function()
-        require("go").setup()
-      end
+      ft = "go",
     },
 
     { "stevearc/oil.nvim",
@@ -118,6 +116,18 @@ require("lazy").setup({
               },
               staticcheck = true,
               gofumpt = true,
+            }
+          }
+        })
+        require("lspconfig").solargraph.setup({
+          cmd = { "solargraph", "stdio" },
+          filetypes = { "ruby" },
+          root_dir = require("lspconfig.util").root_pattern("Gemfile", ".git"),
+          settings = {
+            solargraph = {
+              diagnostics = true,
+              completion = true,
+              formatting = true,
             }
           }
         })
