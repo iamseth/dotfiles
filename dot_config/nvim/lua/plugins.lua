@@ -15,10 +15,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.keymap.set("n", "<leader>rn", function()
-  return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true })
-
 require("lazy").setup({
   spec = {
     { "tpope/vim-commentary" },
@@ -29,29 +25,60 @@ require("lazy").setup({
     { "MunifTanjim/nui.nvim" }, 
     { "nvim-lua/plenary.nvim" },
 
-    { "smjonas/inc-rename.nvim",
+    { "MeanderingProgrammer/render-markdown.nvim" },
+
+
+    { "tomasky/bookmarks.nvim",
       config = function()
-        require("inc_rename").setup()
-      end,
+        require('bookmarks').setup {
+          save_file = vim.fn.expand "$HOME/.bookmarks",
+          keywords =  {
+            ["@t"] = "☑️ ", -- mark annotation startswith @t ,signs this icon as `Todo`
+            ["@w"] = "⚠️ ", -- mark annotation startswith @w ,signs this icon as `Warn`
+            ["@f"] = "⛏ ", -- mark annotation startswith @f ,signs this icon as `Fix`
+            ["@n"] = " ", -- mark annotation startswith @n ,signs this icon as `Note`
+          },
+          on_attach = function(bufnr)
+            local bm = require "bookmarks"
+            local map = vim.keymap.set
+            map("n","mm",bm.bookmark_toggle) -- add or remove bookmark at current line
+            map("n","mi",bm.bookmark_ann) -- add or edit mark annotation at current line
+            map("n","mc",bm.bookmark_clean) -- clean all marks in local buffer
+            map("n","mn",bm.bookmark_next) -- jump to next mark in local buffer
+            map("n","mp",bm.bookmark_prev) -- jump to previous mark in local buffer
+            map("n","ml",bm.bookmark_list) -- show marked file list in quickfix window
+            map("n","mx",bm.bookmark_clear_all) -- removes all bookmarks
+          end
+        }
+      end
     },
 
-      {
-    "Wansmer/treesj",
-    keys = {
-      { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
+    { "smjonas/inc-rename.nvim", config = function() require("inc_rename").setup() end },
+
+    {
+      "Wansmer/treesj",
+      keys = { { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" } },
+      opts = { use_default_keymaps = false, max_join_length = 150 },
     },
-    opts = { use_default_keymaps = false, max_join_length = 150 },
-  },
 
     { "zbirenbaum/copilot.lua",
-      opts = {
-        filetypes = { ["*"] = true },
-      }
+      opts = { filetypes = { ["*"] = true } },
+      config = function()
+        require('copilot').setup({
+           suggestion = {
+             auto_trigger = true,             
+             keymap = {
+               accept_word = false,
+               accept_line = false,
+               accept = "<Tab>",
+             },
+          },
+        })
+      end
+
     },
 
-    { "CopilotC-Nvim/CopilotChat.nvim",
-      opts = { show_help = false },
-    },
+    { "CopilotC-Nvim/CopilotChat.nvim", opts = { show_help = false } },
 
     { "projekt0n/github-nvim-theme",
       config = function()
@@ -59,9 +86,7 @@ require("lazy").setup({
       end
     },
 
-    { "ray-x/go.nvim",
-      ft = "go",
-    },
+    { "ray-x/go.nvim", ft = "go" },
 
     { "stevearc/oil.nvim",
       config = function()
