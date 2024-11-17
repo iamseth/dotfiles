@@ -15,9 +15,12 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+
 require("lazy").setup({
   spec = {
-    { "github/copilot.vim" },
     { "tpope/vim-commentary" },
     { "kdheepak/lazygit.nvim" },
     { "airblade/vim-gitgutter" },
@@ -25,6 +28,30 @@ require("lazy").setup({
     { "nvim-lua/popup.nvim" },
     { "MunifTanjim/nui.nvim" }, 
     { "nvim-lua/plenary.nvim" },
+
+    { "smjonas/inc-rename.nvim",
+      config = function()
+        require("inc_rename").setup()
+      end,
+    },
+
+      {
+    "Wansmer/treesj",
+    keys = {
+      { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
+    },
+    opts = { use_default_keymaps = false, max_join_length = 150 },
+  },
+
+    { "zbirenbaum/copilot.lua",
+      opts = {
+        filetypes = { ["*"] = true },
+      }
+    },
+
+    { "CopilotC-Nvim/CopilotChat.nvim",
+      opts = { show_help = false },
+    },
 
     { "projekt0n/github-nvim-theme",
       config = function()
