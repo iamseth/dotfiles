@@ -10,6 +10,8 @@ vim.keymap.set('n', '<leader>Q', ':qa!<CR>', {})                              --
 vim.keymap.set('n', 'fg', telescope.live_grep, {})                            -- grep through files
 vim.keymap.set('n', 'fb', telescope.buffers, {})                              -- list open buffers 
 vim.keymap.set('n', 'ff', telescope.find_files, {})                           -- find files using telescope
+vim.keymap.set('n', 'fs', telescope.lsp_document_symbols, {})                -- find symbols in current buffer
+
 
 vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', {})                       -- open toggleterm
 vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})            -- go to definition
