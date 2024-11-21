@@ -15,7 +15,6 @@ vim.keymap.set('n', 'fs', telescope.lsp_document_symbols, {})                -- 
 vim.keymap.set('n', '<C-[>', ':tabprevious<CR>', {})
 vim.keymap.set('n', '<C-]>', ':tabnext<CR>', {})
 
-vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', {})                       -- open toggleterm
 vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})            -- go to definition
 
 vim.keymap.set('n', '-', function()
