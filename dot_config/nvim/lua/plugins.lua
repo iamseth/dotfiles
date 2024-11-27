@@ -70,7 +70,7 @@ require("lazy").setup({
              keymap = {
                accept_word = false,
                accept_line = false,
-               accept = "<Tab>",
+               accept = "<S-Tab>",
              },
           },
         })
@@ -209,7 +209,18 @@ require("lazy").setup({
           }
         })
       end
+    },
+
+
+    { "stevearc/overseer.nvim",
+      opts = {}, 
+      config = function()
+        require("overseer").setup({
+          default_view = "split",
+        }) 
+      end
     }
+
 
   }
 })
