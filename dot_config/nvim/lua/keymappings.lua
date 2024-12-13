@@ -12,10 +12,12 @@ vim.keymap.set('n', 'fb', telescope.buffers, {})                              --
 vim.keymap.set('n', 'ff', telescope.find_files, {})                           -- find files using telescope
 vim.keymap.set('n', 'fs', telescope.lsp_document_symbols, {})                -- find symbols in current buffer
 
+vim.keymap.set('n', '<leader>g', ":LazyGit<CR>", {})                      -- find references to symbol under cursor
+
 vim.keymap.set('n', '<C-[>', ':tabprevious<CR>', {})
 vim.keymap.set('n', '<C-]>', ':tabnext<CR>', {})
 
-vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})            -- go to definition
+-- vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})            -- go to definition
 
 vim.keymap.set('n', '-', function()
   oil.open()
