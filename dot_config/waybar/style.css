@@ -1,0 +1,48 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Inter Light;
+    font-size: 12px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: black;
+    border-bottom: 0px solid black;
+    border-top: 1px solid #a678d3;
+    color: #a678d3; 
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+#workspaces button {
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: black;
+    color: inherit;
+    font-weight: 600;
+    border-top: 1px solid #a678d3;
+    border-bottom: 0px solid black;
+    border-right: 0px solid #a678d3;
+}
+
+#workspaces button:first-child {
+    border-left: 0px;
+}
+
+#workspaces button:only-child {
+    border-radius: 0px;
+}
+
+#workspaces button.active,
+#workspaces button.visible {
+    box-shadow: inset 0 -1px #a678d3;
+}
+
+#backlight, #battery, #pulseaudio, #network, #cpu, #memory, #temperature, #clock, #window {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    font-weight: 600;
+    border-left: 1px dashed #a678d3;
+}
