@@ -36,4 +36,4 @@ vim.opt.iskeyword:append("-")                                                 --
 vim.opt.fileencoding = "utf-8"                                                -- the encoding written to a file
 vim.opt.clipboard = "unnamedplus"                                             -- allows neovim to access the system clipboard
 vim.g.lazygit_floating_window_use_plenary = true                              -- use plenary for floating windows
-vim.cmd("highlight WinSeparator guifg=#FF8800")
+vim.cmd("highlight WinSeparator guifg=#A678D3")

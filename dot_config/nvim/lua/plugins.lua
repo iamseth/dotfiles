@@ -24,10 +24,7 @@ require("lazy").setup({
     { "nvim-lua/popup.nvim" },
     { "MunifTanjim/nui.nvim" }, 
     { "nvim-lua/plenary.nvim" },
-
     { "MeanderingProgrammer/render-markdown.nvim" },
-
-
     { "tomasky/bookmarks.nvim",
       config = function()
         require('bookmarks').setup {
@@ -147,6 +144,8 @@ require("lazy").setup({
               mappings = {
                 i = { ["<esc>"] = actions.close },
                 n = { ["<esc>"] = actions.close },
+                -- map ctrl+v to open in vertical split
+                i = { ["<C-v>"] = actions.select_vertical },
               }
             }
           })
