@@ -16,6 +16,18 @@ client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 client.background       #000000
 
+#1739:53160:SYNA802E:00_06CB:CFA8_Touchpad
+
+input "1739:53160:SYNA802E:00_06CB:CFA8_Touchpad" {
+  # Disable while typing.
+  dwt enabled
+  # Enable tap to click.
+  tap enabled
+  tap_button_map lrm
+  middle_emulation enabled
+  scroll_method two_finger
+}
+
 # Workspace names.
 set $ws1 "1"
 set $ws2 "2"
@@ -70,6 +82,11 @@ bindsym $mod+q kill
 
 # Volume control.
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+
+
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 
@@ -78,7 +95,7 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Quick open stuff.
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec wezterm
 bindsym $mod+Shift+Return exec firefox
 bindsym $mod+Shift+space exec Thunar
 bindsym $mod+space exec rofi -theme nord  -show run
@@ -103,6 +120,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+bindsym $mod+r mode "resize"
 
 bar {
         position bottom
@@ -113,7 +131,7 @@ bar {
 exec pactl set-sink-volume 0 30%
 
 # Remove mouse pointer after 2 seconds of inactivity.
-exec unclutter --timeout 2
+# exec unclutter --timeout 2
 
 # Save my eyes.
-exec wlsunset -S 07:00 -s 22:00 -t 4000 -T 6500
+exec wlsunset -S 07:30 -s 18:00 -t 4000 -T 6500

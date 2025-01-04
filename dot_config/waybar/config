@@ -1,8 +1,8 @@
 {
     "ipc": true,
     "position": "bottom",
-    "height": 30,
-    "spacing": 2,
+    "height": 0,
+    "spacing": 4,
     "modules-left": [ "sway/workspaces", "sway/scratchpad", "custom/media" ],
     "modules-center": [],
     "modules-right": [ "sway/mode", "backlight", "battery", "pulseaudio", "clock" ],
@@ -26,31 +26,21 @@
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "battery": {
-        "states": {
-            "good": 80,
-            "warning": 30,
-            "critical": 10
-        },
         "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        "format-good": "", // An empty format will hide the module
-        "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+
+        "format-bluetooth": "{volume}% {icon} {format_source}",   
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "",
+        "format-source-muted": " ",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
             "phone": "",
             "portable": "",
             "car": "",
