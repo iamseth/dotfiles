@@ -14,7 +14,7 @@ vim.keymap.set('n', 'fs', telescope.lsp_document_symbols, {})                 --
 vim.keymap.set('n', '<leader>g', ":LazyGit<CR>", {})                          -- find references to symbol under cursor
 vim.keymap.set('n', '<C-[>', ':tabprevious<CR>', {})
 vim.keymap.set('n', '<C-]>', ':tabnext<CR>', {})
--- vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})         -- go to definition
+vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})         -- go to definition
 
 local oil = require('oil')
 vim.keymap.set('n', '-', function()
