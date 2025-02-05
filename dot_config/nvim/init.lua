@@ -6,15 +6,15 @@ require('settings')
 
 
 -- Automatically show hover documentation when the cursor stops moving
-vim.api.nvim_create_autocmd("CursorHold", {
-  pattern = "*.go", -- Apply to Go files only; adjust as needed
-  callback = function()
-    local lsp_clients = vim.lsp.get_active_clients()
-    if lsp_clients and next(lsp_clients) ~= nil then
-      vim.lsp.buf.hover()
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   pattern = "*.go", -- Apply to Go files only; adjust as needed
+--   callback = function()
+--     local lsp_clients = vim.lsp.get_active_clients()
+--     if lsp_clients and next(lsp_clients) ~= nil then
+--       vim.lsp.buf.hover()
+--     end
+--   end,
+-- })
 
 
 
