@@ -3,6 +3,8 @@ require('keymappings')
 require('autocommands')
 require('settings')
 
+-- Set the background color to be the same as the terminal.
+vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 
 
 -- Automatically show hover documentation when the cursor stops moving
