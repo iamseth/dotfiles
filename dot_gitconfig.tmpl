@@ -2,7 +2,7 @@
   name = Seth Miller
   email = {{ .email | quote }}
   signingkey = {{ .signingkey | quote }}
-  {{- if .somthingelse }}
+  {{- if index .somthingelse }}
   something else = {{ or .somethingelse "foo" | quote }}
   {{- end }}
 
