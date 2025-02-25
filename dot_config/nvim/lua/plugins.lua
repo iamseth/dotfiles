@@ -26,6 +26,7 @@ require("lazy").setup({
     { "nvim-lua/plenary.nvim" },
     { "ray-x/guihua.lua" },
     { "MeanderingProgrammer/render-markdown.nvim" },
+    { "junegunn/goyo.vim" },
     { "tomasky/bookmarks.nvim",
       config = function()
         require('bookmarks').setup {
