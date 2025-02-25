@@ -24,6 +24,7 @@ require("lazy").setup({
     { "nvim-lua/popup.nvim" },
     { "MunifTanjim/nui.nvim" }, 
     { "nvim-lua/plenary.nvim" },
+    { "ray-x/guihua.lua" },
     { "MeanderingProgrammer/render-markdown.nvim" },
     { "tomasky/bookmarks.nvim",
       config = function()
@@ -49,15 +50,10 @@ require("lazy").setup({
         }
       end
     },
-
-    { "smjonas/inc-rename.nvim", config = function() require("inc_rename").setup() end },
-
-    {
-      "Wansmer/treesj",
+    { "Wansmer/treesj",
       keys = { { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" } },
       opts = { use_default_keymaps = false, max_join_length = 150 },
     },
-
     { "zbirenbaum/copilot.lua",
       opts = { filetypes = { ["*"] = true } },
       config = function()
@@ -72,17 +68,12 @@ require("lazy").setup({
           },
         })
       end
-
     },
-
-    { "CopilotC-Nvim/CopilotChat.nvim", opts = { show_help = false } },
-
     { "projekt0n/github-nvim-theme",
       config = function()
         vim.cmd("colorscheme github_dark_default")
       end
     },
-
     { "ray-x/go.nvim", 
       ft = {"go", 'gomod'},
       event = {"CmdlineEnter"},
@@ -94,10 +85,6 @@ require("lazy").setup({
 
       end
     },
-
-    { "ray-x/guihua.lua" },
-      
-
     { "stevearc/oil.nvim",
       config = function()
         require("oil").setup({
@@ -117,7 +104,6 @@ require("lazy").setup({
         })
       end
     },
-
     { "nvim-lualine/lualine.nvim",         
       config = function()
         require('lualine').setup({
@@ -129,7 +115,6 @@ require("lazy").setup({
         })
       end
     },
-
     { "nvim-telescope/telescope.nvim",
       config = function()
         local actions = require("telescope.actions")
@@ -151,7 +136,6 @@ require("lazy").setup({
           })
       end
     },
-
     { "folke/noice.nvim",
       config = function()
         require("noice").setup({
@@ -166,7 +150,6 @@ require("lazy").setup({
         })
       end
     },
-
     { "rcarriga/nvim-notify",
       config = function()
         vim.notify = require("notify")
@@ -176,7 +159,6 @@ require("lazy").setup({
         })
       end,
     },
-
     { "neovim/nvim-lspconfig",
       config = function()
         require("lspconfig").gopls.setup({
@@ -207,7 +189,6 @@ require("lazy").setup({
         })
       end
     },
-
     { "nvim-treesitter/nvim-treesitter",
       config = function()
         require('nvim-treesitter.configs').setup({
@@ -224,18 +205,6 @@ require("lazy").setup({
           }
         })
       end
-    },
-
-
-    { "stevearc/overseer.nvim",
-      opts = {}, 
-      config = function()
-        require("overseer").setup({
-          default_view = "split",
-        }) 
-      end
     }
-
-
   }
 })
