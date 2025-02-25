@@ -16,8 +16,8 @@ vim.keymap.set('n', '<C-[>', ':tabprevious<CR>', {})
 vim.keymap.set('n', '<C-]>', ':tabnext<CR>', {})
 vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})         -- go to definition
 
-local oil = require('oil')
 vim.keymap.set('n', '-', function()
+  local oil = require('oil')
   oil.open()
   vim.wait(1000, function()
     return oil.get_cursor_entry() ~= nil
