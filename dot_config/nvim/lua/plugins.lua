@@ -27,6 +27,15 @@ require("lazy").setup({
     { "ray-x/guihua.lua" },
     { "MeanderingProgrammer/render-markdown.nvim" },
     { "junegunn/goyo.vim" },
+    { "junegunn/limelight.vim" },
+    { "preservim/vim-pencil",
+      config = function()
+        vim.g["pencil#wrapModeDefault"] = "soft"
+        vim.g["pencil#textwidthDefault"] = 80
+        vim.g["pencil#autoformat"] = 1
+        vim.g["pencil#autoformat#textwidth"] = 80
+      end
+    },
     { "tomasky/bookmarks.nvim",
       config = function()
         require('bookmarks').setup {
