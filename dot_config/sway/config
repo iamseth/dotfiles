@@ -6,8 +6,6 @@ default_border none
 
 titlebar_padding 1 1
 
-#color: #a678d3; 
-
 # Configure colors.
 client.focused          #8460A8 #8460A8 #FFFFFF #2E9EF4   #8460A8
 client.focused_inactive #333333 #5F676A #FFFFFF #484E50   #5F676A
@@ -16,12 +14,8 @@ client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 client.background       #000000
 
-#1739:53160:SYNA802E:00_06CB:CFA8_Touchpad
-
 input "1739:53160:SYNA802E:00_06CB:CFA8_Touchpad" {
-  # Disable while typing.
   dwt enabled
-  # Enable tap to click.
   tap enabled
   tap_button_map lrm
   middle_emulation enabled
@@ -77,22 +71,18 @@ bindsym $mod+Shift+r reload
 bindsym $mod+q kill
 
 # Print screen.
-# bindsym Print exec ~/.bin/screenshot
-# bindsym --release Shift+Print exec ~/.bin/screenshot selection
+bindsym Print exec ~/.bin/screenshot
+bindsym --release Shift+Print exec ~/.bin/screenshot selection
 
 # Volume control.
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
-
-
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
-
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 
 # Brightness control
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -inc 2
+bindsym XF86MonBrightnessDown exec xbacklight -dec 2
 
 # Quick open stuff.
 bindsym $mod+Return exec wezterm
@@ -134,4 +124,4 @@ exec pactl set-sink-volume 0 30%
 # exec unclutter --timeout 2
 
 # Save my eyes.
-exec wlsunset -S 07:30 -s 18:00 -t 4000 -T 6500
+# exec wlsunset -S 07:30 -s 18:00 -t 4000 -T 6500

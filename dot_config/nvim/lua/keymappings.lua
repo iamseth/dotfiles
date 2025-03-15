@@ -16,6 +16,10 @@ vim.keymap.set('n', '<C-[>', ':tabprevious<CR>', {})
 vim.keymap.set('n', '<C-]>', ':tabnext<CR>', {})
 vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})         -- go to definition
 
+-- Map escape when in normal mode to do nothing.
+vim.keymap.set('n', '<esc>', '<nop>', {})
+
+
 vim.keymap.set('n', '-', function()
   local oil = require('oil')
   oil.open()
