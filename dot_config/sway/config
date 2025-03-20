@@ -4,6 +4,10 @@ set $mod Mod1
 font pango:fontAwesome 9
 default_border none
 
+
+# Disable the cursor after 3 seconds of inactivity.
+seat seat0 hide_cursor 3000
+
 titlebar_padding 1 1
 
 # Configure colors.
