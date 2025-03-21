@@ -23,15 +23,22 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = { "*.txt" },
-  callback = function()
-    -- vim.wo.number = false
-    -- vim.wo.relativenumber = false
-    -- vim.wo.cursorcolumn = false
-    require('lualine').hide()
+
+local state = {
+  zen_enabled = false,
+}
+
+vim.api.nvim_create_user_command('ZenToggle', function()
+  local lualine = require('lualine').hide()
+  if state.zen_enabled then
+    vim.cmd('Goyo!')
+    vim.cmd('Limelight!')
+    vim.cmd('PencilToggle')
+    state.zen_enabled = false
+  else
     vim.cmd('Goyo')
     vim.cmd('Limelight')
-    vim.cmd('SoftPencil')
+    vim.cmd('PencilToggle')
+    state.zen_enabled = true
   end
-})
+end, {})

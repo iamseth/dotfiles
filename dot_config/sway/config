@@ -1,5 +1,7 @@
 output eDP-1 scale 2
 
+
+
 set $mod Mod1
 font pango:fontAwesome 9
 default_border none
@@ -77,6 +79,9 @@ bindsym $mod+q kill
 # Print screen.
 bindsym Print exec ~/.bin/screenshot
 bindsym --release Shift+Print exec ~/.bin/screenshot selection
+
+# Toggle touchpad.
+bindsym XF86Favorites exec ~/.bin/toggle_trackpad.sh 
 
 # Volume control.
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
