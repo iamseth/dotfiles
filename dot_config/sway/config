@@ -61,7 +61,7 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 
 # Managed the scratchpad.
 bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show, resize set 1920 1200, move window to position 300 100
+bindsym $mod+minus scratchpad show, resize set 1200 600, move window to position 300 100
 bindsym $mod+plus floating toggle
 
 # Move window with focus.
@@ -126,10 +126,10 @@ mode "$mode_system" {
 bindsym $mod+0 mode "$mode_system"
 
 mode "resize" {
-    bindsym Left resize shrink width 5 px or 5 ppt
-    bindsym Down resize grow height 5 px or 5 ppt
-    bindsym Up resize shrink height 5 px or 5 ppt
-    bindsym Right resize grow width 5 px or 5 ppt
+    bindsym Left resize shrink width 15 px or 15 ppt
+    bindsym Down resize grow height 15 px or 15 ppt
+    bindsym Up resize shrink height 15 px or 15 ppt
+    bindsym Right resize grow width 15 px or 15 ppt
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }

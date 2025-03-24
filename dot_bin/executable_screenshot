@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+readonly OUTPUT_DIR="$HOME/.screenshots"
+readonly FILENAME="$(date +%s).png"
+mkdir -p "$OUTPUT_DIR"
+
+# If first argument is "selection", use slurp to select a region
+if [ "$1" = "selection" ]; then
+  slurp | grim -g - "$OUTPUT_DIR/$FILENAME"
+else
+  grim "$OUTPUT_DIR/$FILENAME"
+fi
+
+if command -v wl-copy &> /dev/null; then
+  wl-copy < "$OUTPUT_DIR/$FILENAME"
+fi
