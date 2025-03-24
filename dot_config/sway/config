@@ -61,7 +61,7 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 
 # Managed the scratchpad.
 bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show, resize set 1200 600, move window to position 300 100
+bindsym $mod+minus scratchpad show, resize set 800 400, move window to position 300 150
 bindsym $mod+plus floating toggle
 
 # Move window with focus.
