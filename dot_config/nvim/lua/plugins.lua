@@ -28,8 +28,7 @@ require("lazy").setup({
 		{ "MeanderingProgrammer/render-markdown.nvim" },
 		{ "junegunn/goyo.vim" },
 		{ "junegunn/limelight.vim" },
-		{
-			"preservim/vim-pencil",
+		{ "preservim/vim-pencil",
 			config = function()
 				vim.g["pencil#wrapModeDefault"] = "soft"
 				vim.g["pencil#textwidthDefault"] = 80
@@ -37,8 +36,7 @@ require("lazy").setup({
 				vim.g["pencil#autoformat#textwidth"] = 80
 			end,
 		},
-		{
-			"tomasky/bookmarks.nvim",
+		{ "tomasky/bookmarks.nvim",
 			config = function()
 				require("bookmarks").setup({
 					save_file = vim.fn.expand("$HOME/.bookmarks"),
@@ -62,13 +60,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"Wansmer/treesj",
-			keys = { { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" } },
-			opts = { use_default_keymaps = false, max_join_length = 150 },
-		},
-		{
-			"zbirenbaum/copilot.lua",
+		{	"zbirenbaum/copilot.lua",
 			opts = { filetypes = { ["*"] = true } },
 			config = function()
 				require("copilot").setup({
@@ -83,14 +75,12 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"projekt0n/github-nvim-theme",
+		{	"projekt0n/github-nvim-theme",
 			config = function()
 				vim.cmd("colorscheme github_dark_default")
 			end,
 		},
-		{
-			"ray-x/go.nvim",
+		{	"ray-x/go.nvim",
 			ft = { "go", "gomod" },
 			event = { "CmdlineEnter" },
 			build = ':lua require("go.install").update_all_sync()',
@@ -100,8 +90,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"stevearc/oil.nvim",
+		{ "stevearc/oil.nvim",
 			config = function()
 				require("oil").setup({
 					default_file_explorer = true,
@@ -120,8 +109,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"nvim-lualine/lualine.nvim",
+		{ "nvim-lualine/lualine.nvim",
 			config = function()
 				require("lualine").setup({
 					options = {
@@ -132,8 +120,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"nvim-telescope/telescope.nvim",
+		{ "nvim-telescope/telescope.nvim",
 			config = function()
 				local actions = require("telescope.actions")
 				require("telescope").setup({
@@ -154,8 +141,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"folke/noice.nvim",
+		{ "folke/noice.nvim",
 			config = function()
 				require("noice").setup({
 					presets = {
@@ -171,8 +157,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"rcarriga/nvim-notify",
+		{ "rcarriga/nvim-notify",
 			config = function()
 				vim.notify = require("notify")
 				require("notify").setup({
@@ -181,8 +166,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"neovim/nvim-lspconfig",
+		{ "neovim/nvim-lspconfig",
 			config = function()
 				require("lspconfig").gopls.setup({
 					settings = {
@@ -211,8 +195,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"nvim-treesitter/nvim-treesitter",
+		{ "nvim-treesitter/nvim-treesitter",
 			config = function()
 				require("nvim-treesitter.configs").setup({
 					ensure_installed = {
@@ -245,9 +228,7 @@ require("lazy").setup({
 				})
 			end,
 		},
-
-		{
-			"yetone/avante.nvim",
+		{ "yetone/avante.nvim",
 			event = "VeryLazy",
 			version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
 			opts = {

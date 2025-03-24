@@ -1,11 +1,7 @@
 output eDP-1 scale 2
-
-
-
 set $mod Mod1
 font pango:fontAwesome 9
 default_border none
-
 
 # Disable the cursor after 3 seconds of inactivity.
 seat seat0 hide_cursor 3000
@@ -28,23 +24,40 @@ input "1739:53160:SYNA802E:00_06CB:CFA8_Touchpad" {
   scroll_method two_finger
 }
 
+input "2:10:TPPS/2_Elan_TrackPoint" {
+  accel_profile flat
+  pointer_accel 0.7
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_options caps:escape
+}
+
 # Workspace names.
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
 
 # Workspace navigation.
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
+
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
 
 # Managed the scratchpad.
 bindsym $mod+Shift+minus move scratchpad
@@ -83,6 +96,9 @@ bindsym --release Shift+Print exec ~/.bin/screenshot selection
 # Toggle touchpad.
 bindsym XF86Favorites exec ~/.bin/toggle_trackpad.sh 
 
+# Toggle VPN.
+bindsym XF86SelectiveScreenshot exec ~/.bin/toggle_vpn.sh
+
 # Volume control.
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
@@ -95,8 +111,6 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 2
 
 # Quick open stuff.
 bindsym $mod+Return exec wezterm
-bindsym $mod+Shift+Return exec firefox
-bindsym $mod+Shift+space exec Thunar
 bindsym $mod+space exec rofi -theme nord  -show run
 
 # Toggle bar.
@@ -119,6 +133,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
 bindsym $mod+r mode "resize"
 
 bar {
@@ -128,9 +143,3 @@ bar {
 
 # Configure default sound volume to 30%.
 exec pactl set-sink-volume 0 30%
-
-# Remove mouse pointer after 2 seconds of inactivity.
-# exec unclutter --timeout 2
-
-# Save my eyes.
-# exec wlsunset -S 07:30 -s 18:00 -t 4000 -T 6500
