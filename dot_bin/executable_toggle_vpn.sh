@@ -6,11 +6,11 @@
 if [ -z "$(sudo wg show wg0)" ]; then
   # Start the vpn
   sudo wg-quick up wg0
-  zenity --info --text="VPN is now connected"
+  zenity --notification --text="VPN is now connected"
 else
   # Stop the vpn
   sudo wg-quick down wg0
-  zenity --info --text="VPN is now disconnected"
+  zenity --notification --text="VPN is now disconnected"
 fi
 
 sudo wg show wg0

@@ -100,14 +100,14 @@ bindsym XF86Favorites exec ~/.bin/toggle_trackpad.sh
 bindsym XF86SelectiveScreenshot exec ~/.bin/toggle_vpn.sh
 
 # Volume control.
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioMute exec ~/.bin/volume.sh toggle_mute
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioRaiseVolume exec ~/.bin/volume.sh up
+bindsym XF86AudioLowerVolume exec ~/.bin/volume.sh down
 
 # Brightness control
-bindsym XF86MonBrightnessUp exec xbacklight -inc 2
-bindsym XF86MonBrightnessDown exec xbacklight -dec 2
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Quick open stuff.
 bindsym $mod+Return exec wezterm
@@ -142,4 +142,7 @@ bar {
 }
 
 # Configure default sound volume to 30%.
-exec pactl set-sink-volume 0 30%
+exec ~/.bin/volume.sh set_default
+
+
+include /etc/sway/config.d/*
