@@ -25,8 +25,8 @@ input "1739:53160:SYNA802E:00_06CB:CFA8_Touchpad" {
 }
 
 input "2:10:TPPS/2_Elan_TrackPoint" {
-  accel_profile flat
-  pointer_accel 0.7
+  accel_profile adaptive
+  pointer_accel 0.4
 }
 
 input "1:1:AT_Translated_Set_2_keyboard" {
