@@ -19,7 +19,6 @@ vim.opt.wrap = false                                                          --
 vim.g.mapleader = ' '                                                         -- set the leader key to space
 vim.cmd("highlight WinSeparator guifg=#A678D3")                               -- set the color of the window separator
 
-
 -- plugins
 require('plugins')
 local telescope = require('telescope.builtin')
@@ -31,7 +30,7 @@ vim.keymap.set('n', '<leader>rc', ':luafile ~/.config/nvim/init.lua<CR>', {}) --
 vim.keymap.set('n', 'fg', telescope.live_grep, {})                            -- grep through files
 vim.keymap.set('n', 'fb', telescope.buffers, {})                              -- list open buffers 
 vim.keymap.set('n', 'ff', telescope.find_files, {})                           -- find files using telescope
-vim.keymap.set('n', 'fs', telescope.lsp_document_symbols, {})                 -- find symbols in current buffer
+vim.keymap.set('n', 'fs', telescope.lsp_document_symbols, {})                 -- find symbols in current buffer using telescope
 vim.keymap.set('n', '<leader>g', ":LazyGit<CR>", {})                          -- open lazygit
 vim.keymap.set('n', '<esc>', '<nop>', {})                                     -- Map escape when in normal mode to do nothing.
 vim.keymap.set('n', 'gd', ':lua vim.lsp.buf.definition()<CR>', {})            -- go to definition
@@ -40,6 +39,15 @@ vim.keymap.set('n', 'J', '<C-w>j', { noremap = true, silent = true })         --
 vim.keymap.set('n', 'K', '<C-w>k', { noremap = true, silent = true })         -- move to window above
 vim.keymap.set('n', 'H', '<C-w>h', { noremap = true, silent = true })         -- move to window left
 vim.keymap.set('n', 'L', '<C-w>l', { noremap = true, silent = true })         -- move to window right
+
+
+vim.keymap.set('n', 'ss', telescope.live_grep, {})
+local k = vim.keymap
+
+k.set('n', '<leader>v', ':vsplit<CR>', { noremap = true, silent = true })     -- vertical split
+
+-- vim.keymap.set('i', 'jk', '<esc>', { noremap = true })                        -- map jk to escape in insert mode this is useful for vim users
+-- k.set({'i', 'n'}, 'kj', '<esc>/', { noremap = true, silent = true })
 
 -- autocommands
 vim.api.nvim_create_autocmd("BufWritePre", {

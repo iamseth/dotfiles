@@ -23,7 +23,6 @@ zinit light zsh-users/zsh-completions
 setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
 
-
 HISTFILE="$HOME/.zsh_history"
 
 export HISTSIZE=1000000
@@ -33,12 +32,13 @@ export GOBIN="$GOPATH/bin"
 export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
 
-
-alias vim='nvim'
+alias cd='z'
 alias ls='lsd'
-alias tree='tree -C'
+alias vim='nvim'
+alias ll='ls -lh'
 alias k='kubectl'
 alias ch='chezmoi'
+alias tree='tree -C'
 alias tf='terraform'
 alias diff='colordiff'
 alias python='python3'
@@ -47,6 +47,7 @@ alias cat='bat --paging never --style plain'
 alias myip='curl https://ifconfig.me;echo'
 alias weather='curl -s https://wttr.in'
 alias randomstring='date +%s | sha2 -256 -q | base64 | head -c 32 ; echo'
+
 alias @desktop="cd $HOME/Desktop"
 alias @downloads="cd $HOME/Downloads"
 alias @documents="cd $HOME/Documents"
