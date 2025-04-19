@@ -33,7 +33,7 @@ export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
 
 alias cd='z'
-alias ls='lsd'
+alias ls='lsd -I Music -I Movies -I Pictures -I Library'
 alias vim='nvim'
 alias ll='ls -lh'
 alias k='kubectl'
