@@ -1,6 +1,6 @@
-output eDP-1 scale 2
+output eDP-1 scale 1.8
 set $mod Mod1
-font pango:fontAwesome 9
+font pango:fontAwesome 10
 default_border none
 
 # Disable the cursor after 3 seconds of inactivity.
@@ -59,9 +59,9 @@ bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
 
-# Managed the scratchpad.
+# Scratchpad managements.
 bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show, resize set 800 400, move window to position 300 150
+bindsym $mod+minus scratchpad show
 bindsym $mod+plus floating toggle
 
 # Move window with focus.
