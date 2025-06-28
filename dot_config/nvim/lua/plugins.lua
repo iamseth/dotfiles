@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	spec = {
+    { "junegunn/goyo.vim" },
 		{ "preservim/vim-pencil",
 		{ "tpope/vim-commentary" },
 		{ "kdheepak/lazygit.nvim" },
