@@ -32,7 +32,7 @@ export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
 
 alias cd='z'
-alias ls='lsd -I Music -I Movies -I Pictures -I Library'
+alias ls='lsd'
 alias vim='nvim'
 alias ll='ls -lh'
 alias k='kubectl'
@@ -41,10 +41,11 @@ alias tree='tree -C'
 alias diff='colordiff'
 alias python='python3'
 alias history='history -i 0'
+
 alias cat='bat --paging never --style plain'
 alias myip='curl https://ifconfig.me;echo'
 alias weather='curl -s https://wttr.in'
-alias randomstring='date +%s | sha2 -256 -q | base64 | head -c 32 ; echo'
+alias randomstring=' date +%s | sha256sum | base64 | head -c 32 | tee >(wl-copy); echo'
 
 alias @desktop="cd $HOME/Desktop"
 alias @downloads="cd $HOME/Downloads"
