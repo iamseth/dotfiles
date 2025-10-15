@@ -16,11 +16,8 @@ vim.opt.iskeyword:append("-", "_", "@") -- treat dash, underscore and @ as part 
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.wrap = false -- display lines as one long line
 vim.g.mapleader = " " -- set the leader key to space
-vim.o.guifont = "Source Code Pro:h14" 
 
 require("plugins")
-
-vim.g.neovide_scale_factor = 0.90
 
 vim.cmd("highlight WinSeparator guifg=#A678D3") -- set the color of the window separator
 local telescope = require("telescope.builtin")
