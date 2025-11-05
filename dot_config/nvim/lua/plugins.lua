@@ -200,7 +200,6 @@ require("lazy").setup({
     {
 			"neovim/nvim-lspconfig",
       config = function()
-
         local lsps = {
           { "gopls",
             {
@@ -224,7 +223,6 @@ require("lazy").setup({
           { "dockerls"  },
           { "marksman"  },
         }
-
         for _, lsp in ipairs(lsps) do
           local name, config = lsp[1], lsp[2]
           vim.lsp.enable(name)
@@ -232,7 +230,6 @@ require("lazy").setup({
             vim.lsp.config(name, config)
           end
         end
--- 			
 			end,
 		},
 		{ "ray-x/go.nvim",
