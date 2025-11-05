@@ -200,18 +200,39 @@ require("lazy").setup({
     {
 			"neovim/nvim-lspconfig",
       config = function()
-				require("lspconfig").gopls.setup({
-					settings = {
-						gopls = {
-							analyses = {
-								unusedparams = true,
-								shadow = true,
-							},
-							staticcheck = true,
-							gofumpt = true,
-						},
-					},
-				})
+
+        local lsps = {
+          { "gopls",
+            {
+              settings = {
+                gopls = {
+                  analyses = {
+                    unusedparams = true,
+                    shadow = true,
+                  },
+                  staticcheck = true,
+                  gofumpt = true,
+                },
+              },
+            },
+          },
+          { "sqlls"  },
+          { "lua_ls" },
+          { "pyright" },
+          { "bashls"  },
+          { "yamlls"  },
+          { "dockerls"  },
+          { "marksman"  },
+        }
+
+        for _, lsp in ipairs(lsps) do
+          local name, config = lsp[1], lsp[2]
+          vim.lsp.enable(name)
+          if config then
+            vim.lsp.config(name, config)
+          end
+        end
+-- 			
 			end,
 		},
 		{ "ray-x/go.nvim",
