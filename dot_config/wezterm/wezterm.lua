@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
-config.font_size = 12.0
+config.font_size = 11.0
 config.tab_bar_at_bottom = false
 config.colors = { foreground = "#FFFFFF" }
 config.hide_tab_bar_if_only_one_tab = true
