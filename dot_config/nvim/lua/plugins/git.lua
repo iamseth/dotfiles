@@ -1,4 +1,4 @@
 return {
-  { "kdheepak/lazygit.nvim" },
-  { "airblade/vim-gitgutter" },
+	{ "kdheepak/lazygit.nvim" },
+	{ "airblade/vim-gitgutter" },
 }
