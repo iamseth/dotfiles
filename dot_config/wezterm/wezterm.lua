@@ -14,14 +14,15 @@ config.window_padding = {
   bottom = 0,
 }
 
-config.window_frame = {
-  font_size = 11,
-  font = require('wezterm').font 'JetBrains Mono Nerd Font',
-}
+config.window_decorations = "RESIZE"
 
 config.keys = {
+  {key="c", mods="CTRL", action=wezterm.action{CopyTo="Clipboard"}} ,
   {key="v", mods="CTRL", action=wezterm.action{PasteFrom="Clipboard"}},
   {key="k", mods="ALT", action=wezterm.action{ClearScrollback="ScrollbackAndViewport"}},
+  {key="t", mods="CTRL", action=wezterm.action{SpawnTab="CurrentPaneDomain"}},
+  {key="w", mods="CTRL", action=wezterm.action{CloseCurrentTab={confirm=true}}},
 }
+
 
 return config
