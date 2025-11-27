@@ -8,7 +8,7 @@ vim.keymap.set("n", "J", "<C-w>j", opts) -- move to window below
 vim.keymap.set("n", "K", "<C-w>k", opts) -- move to window above
 vim.keymap.set("n", "H", "<C-w>h", opts) -- move to window left
 vim.keymap.set("n", "L", "<C-w>l", opts) -- move to window right
-vim.keymap.set("n", "ss", telescope.live_grep, opts) -- search in current directory
+vim.keymap.set("n", "ss", telescope.grep_string, opts) -- search in current directory
 vim.keymap.set("n", "sl", telescope.buffers, opts) -- list open buffers
 vim.keymap.set("n", "ff", telescope.fd, opts) -- find files using telescope
 vim.keymap.set("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts) -- go to definition
@@ -20,3 +20,10 @@ vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", opts) -- open lazygit
 vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts) -- open terminal
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts) -- center screen when scrolling down
 vim.keymap.set("n", "<C-u>", "<C-u>zz", opts) -- center screen when scrolling up
+
+
+vim.keymap.set("n", "<C-j>", "<C-d>zz", opts)
+vim.keymap.set("n", "<C-k>", "<C-u>zz", opts)
+
+-- keymap for nt to add a new task in markdown
+vim.keymap.set("n", "nt", "o- [ ] ", opts)

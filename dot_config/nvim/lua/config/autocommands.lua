@@ -30,3 +30,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- end
 	end,
 })
+
+
+-- Auto save on focus lost or buffer leave
+-- vim.api.nvim_create_autocmd({"FocusLost", "BufLeave"}, {
+--   pattern = "*",
+--   command = "silent! wall"
+-- })
