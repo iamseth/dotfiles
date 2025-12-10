@@ -13,10 +13,8 @@ config.colors = { foreground = "#FFFFFF" }
 config.font = wezterm.font("JetBrains Mono Nerd Font")
 config.adjust_window_size_when_changing_font_size = false
 config.window_padding = { top = 8, left = 8, right = 0, bottom = 0 }
-
 config.leader = { key = "l", mods = "CTRL", timeout_milliseconds = 2000 }
 config.keys = {
-	-- Pane Navigation
 	{ key = "LeftArrow", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Left") },
 	{ key = "DownArrow", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Down") },
 	{ key = "UpArrow", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Up") },
@@ -25,8 +23,22 @@ config.keys = {
 	{ key = "j", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Down") },
 	{ key = "k", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Up") },
 	{ key = "l", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Right") },
+  -- Paste with CTRL+V
+	{ key = "v", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) },
+  -- Create new tab with CTRL+T
+	{ key = "t", mods = "CTRL", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
+  -- Close pane with LEADER+w
+	{ key = "w", mods = "LEADER", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
+  -- Split pan horizontally with LEADER+h
+	{ key = "h", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
+  -- Split pane vertically with LEADER+v
+	{ key = "v", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
+  -- Clear scrollback with LEADER+k
+	{ key = "k", mods = "LEADER", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
+  -- Toggle fullscreen with CMD+SHIFT+f
+	{ key = "f", mods = "CMD|SHIFT", action = wezterm.action.ToggleFullScreen },
 	{ key = "r", mods = "LEADER", action = wezterm.action.PromptInputLine({
-			description = "Enter new tab name",
+      description = "Enter new tab name",
 			action = wezterm.action_callback(function(window, _, line)
 				if line then
 					window:active_tab():set_title(line)
@@ -34,32 +46,6 @@ config.keys = {
 			end),
 		}),
 	},
-	{ key = "w", mods = "LEADER", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
-	{ key = "k", mods = "LEADER", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
-	{ key = "h", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
-	{ key = "v", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
-
-	{ key = "v", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) }, -- Copy Paste
-	{ key = "t", mods = "CTRL", action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) }, -- New Tab
-
-	{ key = "F11", action = wezterm.action.ToggleFullScreen },
-	{ key = "f", mods = "CMD|SHIFT", action = wezterm.action.ToggleFullScreen },
 }
 
--- wezterm.on("update-status", function(window, pane)
---   local date = wezterm.strftime("%Y-%m-%d %H:%M:%S")
---   local battery = ""
---   for _, b in ipairs(wezterm.battery_info()) do
---     battery = string.format("%.0f%%", b.state_of_charge * 100)
---   end
---   window:set_right_status(wezterm.format({
---     {Text=string.format("%s | %s", battery, date)},
---   }))
--- end)
-
-
-
 return config
-
-
-

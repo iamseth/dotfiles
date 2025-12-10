@@ -24,6 +24,7 @@ setopt EXTENDED_HISTORY
 
 HISTFILE="$HOME/.zsh_history"
 
+export EDITOR='nvim'
 export HISTSIZE=1000000
 export SAVEHIST="$HISTSIZE"
 export GOPATH="$HOME/.go"
@@ -46,6 +47,7 @@ alias cat='bat --paging never --style plain'
 alias myip='curl https://ifconfig.me;echo'
 alias weather='curl -s https://wttr.in'
 alias randomstring=' date +%s | sha256sum | base64 | head -c 32 | tee >(wl-copy); echo'
+alias imgcat='wezterm imgcat --width=50% --resample-filter=nearest --resize=400x300'
 
 alias @desktop="cd $HOME/Desktop"
 alias @downloads="cd $HOME/Downloads"
