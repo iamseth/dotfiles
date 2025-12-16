@@ -4,6 +4,6 @@ return {
 	{ "junegunn/limelight.vim" },
 	{ "MeanderingProgrammer/render-markdown.nvim", opts = {
 		enabled = false,
-    render_modes = true,
+		render_modes = true,
 	} },
 }

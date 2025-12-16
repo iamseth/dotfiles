@@ -21,9 +21,15 @@ vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts) -- open terminal
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts) -- center screen when scrolling down
 vim.keymap.set("n", "<C-u>", "<C-u>zz", opts) -- center screen when scrolling up
 
-
 vim.keymap.set("n", "<C-j>", "<C-d>zz", opts)
 vim.keymap.set("n", "<C-k>", "<C-u>zz", opts)
 
 -- keymap for nt to add a new task in markdown
 vim.keymap.set("n", "nt", "o- [ ] ", opts)
+
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- Diagnostic keymaps
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
