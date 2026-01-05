@@ -58,4 +58,4 @@ eval "$(zoxide init zsh)"
 autoload -Uz compinit && compinit
 
 [ -f "$HOME/.p10k.zsh" ] && source "$HOME/.p10k.zsh"
-[ -f "$HOME/.local.zsh" ] && source "$HOME/.local.zsh"
+[ -f "$HOME/.local.zsh" ] && source "$HOME/.local.zsh" || :
