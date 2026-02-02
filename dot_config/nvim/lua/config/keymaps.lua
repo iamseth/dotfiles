@@ -1,7 +1,8 @@
 local telescope = require("telescope.builtin")
 local opts = { noremap = true, silent = true }
 
-vim.keymap.set("n", "qq", ":q<CR>", opts) -- quit
+-- vim.keymap.set("n", "qq", ":BufferClose!<CR>", opts) -- close buffer
+vim.keymap.set("n", "qq", ":wq<CR>", opts) -- quit
 vim.keymap.set("t", "qq", "<C-\\><C-N>:q<CR>", opts) -- quit terminal
 vim.keymap.set("n", "-", ":Oil<CR>", opts) -- open oil
 vim.keymap.set("n", "J", "<C-w>j", opts) -- move to window below

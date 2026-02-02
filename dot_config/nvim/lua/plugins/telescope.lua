@@ -18,6 +18,7 @@ return {
 
 		config = function()
 			local actions = require("telescope.actions")
+			local action_state = require("telescope.actions.state")
 			require("telescope").setup({
 				extensions = {
 					["ui-select"] = {
@@ -32,8 +33,24 @@ return {
 				},
 				defaults = {
 					mappings = {
-						i = { ["<esc>"] = actions.close },
-						n = { ["<esc>"] = actions.close },
+						i = {
+							["<esc>"] = actions.close,
+							["<CR>"] = function(prompt_bufnr)
+								local entry = action_state.get_selected_entry()
+								actions.close(prompt_bufnr)
+								vim.cmd("tabedit " .. vim.fn.fnameescape(entry.path or entry.filename))
+							end,
+						},
+
+						n = {
+							["<esc>"] = actions.close,
+							["<CR>"] = function(prompt_bufnr)
+								local entry = action_state.get_selected_entry()
+								actions.close(prompt_bufnr)
+								vim.cmd("tabedit " .. vim.fn.fnameescape(entry.path or entry.filename))
+							end,
+						},
+
 						-- i = { ["<C-v>"] = actions.select_vertical },
 					},
 				},
