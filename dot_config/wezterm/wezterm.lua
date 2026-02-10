@@ -10,7 +10,7 @@ config.window_decorations = "RESIZE"
 config.color_scheme = "Github Dark (Gogh)"
 config.hide_tab_bar_if_only_one_tab = true
 config.colors = { foreground = "#FFFFFF" }
-config.font = wezterm.font("JetBrains Mono Nerd Font")
+config.font = wezterm.font("JetBrains Mono")
 config.adjust_window_size_when_changing_font_size = false
 config.window_padding = { top = 8, left = 8, right = 8, bottom = 8 }
 config.leader = { key = "l", mods = "CTRL", timeout_milliseconds = 2000 }
@@ -47,5 +47,10 @@ config.keys = {
 		}),
 	},
 }
+
+if wezterm.target_triple:find("windows") ~= nil then
+  config.default_domain = "WSL:archlinux"
+  config.window_decorations = "TITLE | RESIZE"
+end
 
 return config
