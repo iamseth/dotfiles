@@ -1,8 +1,7 @@
 local telescope = require("telescope.builtin")
 local opts = { noremap = true, silent = true }
 
--- vim.keymap.set("n", "qq", ":BufferClose!<CR>", opts) -- close buffer
-vim.keymap.set("n", "qq", ":wq<CR>", opts) -- quit
+vim.keymap.set("n", "qq", ":wq!<CR>", opts) -- quit
 vim.keymap.set("t", "qq", "<C-\\><C-N>:q<CR>", opts) -- quit terminal
 vim.keymap.set("n", "-", ":Oil<CR>", opts) -- open oil
 vim.keymap.set("n", "J", "<C-w>j", opts) -- move to window below
@@ -19,18 +18,7 @@ vim.keymap.set("n", "<leader>r", ":ReloadConfig<CR>", opts) -- reload configurat
 vim.keymap.set("n", "<leader>w", ":SaveAll<CR>", opts) -- save all buffers
 vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", opts) -- open lazygit
 vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts) -- open terminal
-vim.keymap.set("n", "<C-d>", "<C-d>zz", opts) -- center screen when scrolling down
-vim.keymap.set("n", "<C-u>", "<C-u>zz", opts) -- center screen when scrolling up
-
-vim.keymap.set("n", "<C-j>", "<C-d>zz", opts)
-vim.keymap.set("n", "<C-k>", "<C-u>zz", opts)
-
--- keymap for nt to add a new task in markdown
-vim.keymap.set("n", "nt", "o- [ ] ", opts)
-
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
--- Diagnostic keymaps
+vim.keymap.set("n", "<C-j>", "<C-d>zz", opts) -- scroll half a page down/up and center the cursor
+vim.keymap.set("n", "<C-k>", "<C-u>zz", opts) -- scroll half a page down/up and center the cursor
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear search highlights
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })

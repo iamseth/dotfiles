@@ -34,24 +34,15 @@ return {
 				defaults = {
 					mappings = {
 						i = {
+              -- Close on <esc> in insert mode
 							["<esc>"] = actions.close,
-							["<CR>"] = function(prompt_bufnr)
-								local entry = action_state.get_selected_entry()
-								actions.close(prompt_bufnr)
-								vim.cmd("tabedit " .. vim.fn.fnameescape(entry.path or entry.filename))
-							end,
 						},
 
 						n = {
+              -- Close on <esc> in normal mode
 							["<esc>"] = actions.close,
-							["<CR>"] = function(prompt_bufnr)
-								local entry = action_state.get_selected_entry()
-								actions.close(prompt_bufnr)
-								vim.cmd("tabedit " .. vim.fn.fnameescape(entry.path or entry.filename))
-							end,
 						},
 
-						-- i = { ["<C-v>"] = actions.select_vertical },
 					},
 				},
 			})

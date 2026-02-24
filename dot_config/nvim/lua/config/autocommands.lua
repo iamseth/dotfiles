@@ -19,26 +19,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-
 		if client.name == "gopls" then
 			vim.keymap.set("n", "<leader>r", ":lua vim.lsp.buf.rename()<CR>", { buffer = args.buf })
 			vim.keymap.set("n", "<leader>a", ":lua vim.lsp.buf.code_action()<CR>", { buffer = args.buf })
 		end
-
-		-- if client:supports_method('textDocument/completion') then
-		--   vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true } )
-		-- end
 	end,
 })
-
--- Auto save on focus lost or buffer leave
--- vim.api.nvim_create_autocmd({"FocusLost", "BufLeave"}, {
---   pattern = "*",
---   command = "silent! wall"
--- })
---
---
---
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
