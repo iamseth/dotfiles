@@ -1,4 +1,7 @@
+local seth_group = vim.api.nvim_create_augroup("seth-config", { clear = true })
+
 vim.api.nvim_create_autocmd("BufWritePre", {
+	group = seth_group,
 	pattern = "*.go",
 	callback = function()
 		local params = vim.lsp.util.make_range_params()
@@ -17,11 +20,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
+	group = seth_group,
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		if client.name == "gopls" then
-			vim.keymap.set("n", "<leader>r", ":lua vim.lsp.buf.rename()<CR>", { buffer = args.buf })
-			vim.keymap.set("n", "<leader>a", ":lua vim.lsp.buf.code_action()<CR>", { buffer = args.buf })
+		if client and client.name == "gopls" then
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = args.buf })
+			vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { buffer = args.buf })
 		end
 	end,
 })

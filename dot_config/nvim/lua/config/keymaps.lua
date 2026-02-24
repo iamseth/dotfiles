@@ -1,4 +1,3 @@
-local telescope = require("telescope.builtin")
 local opts = { noremap = true, silent = true }
 
 vim.keymap.set("n", "qq", ":wq!<CR>", opts) -- quit
@@ -8,9 +7,15 @@ vim.keymap.set("n", "J", "<C-w>j", opts) -- move to window below
 vim.keymap.set("n", "K", "<C-w>k", opts) -- move to window above
 vim.keymap.set("n", "H", "<C-w>h", opts) -- move to window left
 vim.keymap.set("n", "L", "<C-w>l", opts) -- move to window right
-vim.keymap.set("n", "ss", telescope.grep_string, opts) -- search in current directory
-vim.keymap.set("n", "sl", telescope.buffers, opts) -- list open buffers
-vim.keymap.set("n", "ff", telescope.fd, opts) -- find files using telescope
+vim.keymap.set("n", "ss", function()
+	require("telescope.builtin").grep_string()
+end, opts) -- search in current directory
+vim.keymap.set("n", "sl", function()
+	require("telescope.builtin").buffers()
+end, opts) -- list open buffers
+vim.keymap.set("n", "ff", function()
+	require("telescope.builtin").find_files()
+end, opts) -- find files using telescope
 vim.keymap.set("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts) -- go to definition
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", opts) -- vertical split
 vim.keymap.set("n", "<leader>h", ":split<CR>", opts) -- horizontal split

@@ -12,7 +12,7 @@ vim.opt.smartcase = true -- smart case
 vim.opt.splitright = true -- force all vertical splits to go to the right of current window
 vim.opt.splitbelow = true -- force all horizontal splits to go below current window
 vim.opt.termguicolors = true -- Enables 24-bit RGB color in the TUI. This is supported by most terminals.
-vim.opt.iskeyword:append("-", "_", "@") -- treat dash, underscore and @ as part of a word
+vim.opt.iskeyword:append({ "-", "_", "@" }) -- treat dash, underscore and @ as part of a word
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.undofile = true -- Enable persistent undo

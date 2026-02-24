@@ -18,7 +18,6 @@ return {
 
 		config = function()
 			local actions = require("telescope.actions")
-			local action_state = require("telescope.actions.state")
 			require("telescope").setup({
 				extensions = {
 					["ui-select"] = {
@@ -34,12 +33,12 @@ return {
 				defaults = {
 					mappings = {
 						i = {
-              -- Close on <esc> in insert mode
+							-- Close on <esc> in insert mode
 							["<esc>"] = actions.close,
 						},
 
 						n = {
-              -- Close on <esc> in normal mode
+							-- Close on <esc> in normal mode
 							["<esc>"] = actions.close,
 						},
 

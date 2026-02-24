@@ -4,8 +4,18 @@ vim.api.nvim_create_user_command("SaveAll", function()
 end, {})
 
 vim.api.nvim_create_user_command("ReloadConfig", function()
-	vim.cmd("source ~/.config/nvim/init.lua")
-	vim.notify("Configuration reloaded.", vim.log.levels.INFO, { title = "Config Reloaded" })
+	for name, _ in pairs(package.loaded) do
+		if name:match("^config%.") or name:match("^plugins%.") then
+			package.loaded[name] = nil
+		end
+	end
+
+	local ok, err = pcall(dofile, vim.env.MYVIMRC)
+	if ok then
+		vim.notify("Configuration reloaded.", vim.log.levels.INFO, { title = "Config Reloaded" })
+	else
+		vim.notify("Reload failed: " .. err, vim.log.levels.ERROR, { title = "Config Reloaded" })
+	end
 end, {})
 
 local state = {
@@ -17,16 +27,22 @@ local state = {
 }
 
 vim.api.nvim_create_user_command("ZenToggle", function()
-	local lualine = require("lualine").hide()
+	local has_lualine, lualine = pcall(require, "lualine")
 	if state.zen_mode then
 		vim.cmd("Goyo!")
 		vim.cmd("Limelight!")
 		vim.cmd("PencilToggle")
+		if has_lualine and lualine.hide then
+			lualine.hide({ unhide = true })
+		end
 		state.zen_mode = false
 	else
 		vim.cmd("Goyo")
 		vim.cmd("Limelight")
 		vim.cmd("PencilToggle")
+		if has_lualine and lualine.hide then
+			lualine.hide()
+		end
 		state.zen_mode = true
 	end
 end, {})
@@ -42,7 +58,6 @@ local function create_floating_window(opts)
 	local buf = nil
 	if vim.api.nvim_buf_is_valid(opts.buf) then
 		buf = opts.buf
-		vim.cmd.startinsert()
 	else
 		buf = vim.api.nvim_create_buf(false, true) -- No file, scratch buffer
 	end
@@ -67,8 +82,8 @@ vim.api.nvim_create_user_command("Floaterminal", function()
 		state.floating = create_floating_window({ buf = state.floating.buf })
 		if vim.bo[state.floating.buf].buftype ~= "terminal" then
 			vim.cmd.terminal()
-			vim.cmd.startinsert()
 		end
+		vim.cmd.startinsert()
 	else
 		vim.api.nvim_win_hide(state.floating.win)
 	end
