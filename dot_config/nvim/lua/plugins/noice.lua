@@ -17,7 +17,6 @@ return {
 		end,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},

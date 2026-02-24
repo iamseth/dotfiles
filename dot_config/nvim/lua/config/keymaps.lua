@@ -16,7 +16,7 @@ end, opts) -- list open buffers
 vim.keymap.set("n", "ff", function()
 	require("telescope.builtin").find_files()
 end, opts) -- find files using telescope
-vim.keymap.set("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts) -- go to definition
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", opts) -- vertical split
 vim.keymap.set("n", "<leader>h", ":split<CR>", opts) -- horizontal split
 vim.keymap.set("n", "<leader>w", ":SaveAll<CR>", opts) -- save all buffers
@@ -26,4 +26,4 @@ vim.keymap.set("n", "<leader>cc", ":Copilot toggle<CR>", opts) -- toggle copilot
 vim.keymap.set("n", "<C-j>", "<C-d>zz", opts) -- scroll half a page down/up and center the cursor
 vim.keymap.set("n", "<C-k>", "<C-u>zz", opts) -- scroll half a page down/up and center the cursor
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear search highlights
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
