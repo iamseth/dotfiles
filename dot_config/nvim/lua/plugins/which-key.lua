@@ -38,8 +38,8 @@ return {
 				},
 			},
 			spec = {
+				{ "<leader>c", group = "Copilot" },
 				{ "<leader>g", group = "Git" },
-				{ "<leader>r", group = "Reload" },
 				{ "<leader>t", group = "Terminal" },
 				{ "<leader>v", group = "Split" },
 				{ "<leader>w", group = "Write" },

@@ -3,18 +3,43 @@ vim.api.nvim_create_user_command("SaveAll", function()
 	vim.notify("All buffers saved.", vim.log.levels.INFO, { title = "Buffers Written" })
 end, {})
 
-vim.api.nvim_create_user_command("ReloadConfig", function()
-	for name, _ in pairs(package.loaded) do
-		if name:match("^config%.") or name:match("^plugins%.") then
-			package.loaded[name] = nil
-		end
+local function write_current_buffer_if_needed(buf)
+	if not vim.api.nvim_buf_is_valid(buf) or not vim.bo[buf].modified then
+		return true
 	end
 
-	local ok, err = pcall(dofile, vim.env.MYVIMRC)
-	if ok then
-		vim.notify("Configuration reloaded.", vim.log.levels.INFO, { title = "Config Reloaded" })
+	local buftype = vim.bo[buf].buftype
+	if buftype ~= "" and buftype ~= "acwrite" then
+		return true
+	end
+
+	local ok, err = pcall(vim.api.nvim_buf_call, buf, function()
+		vim.cmd("silent write")
+	end)
+
+	if not ok then
+		vim.notify("Could not save buffer: " .. err, vim.log.levels.ERROR, { title = "Smart Quit" })
+	end
+
+	return ok
+end
+
+vim.api.nvim_create_user_command("SmartQuit", function()
+	local buf = vim.api.nvim_get_current_buf()
+	if not write_current_buffer_if_needed(buf) then
+		return
+	end
+
+	local current_tab = vim.api.nvim_get_current_tabpage()
+	local wins_in_tab = #vim.api.nvim_tabpage_list_wins(current_tab)
+	local total_tabs = #vim.api.nvim_list_tabpages()
+
+	if wins_in_tab > 1 then
+		vim.cmd("close")
+	elseif total_tabs > 1 then
+		vim.cmd("tabclose")
 	else
-		vim.notify("Reload failed: " .. err, vim.log.levels.ERROR, { title = "Config Reloaded" })
+		vim.cmd("bdelete")
 	end
 end, {})
 
