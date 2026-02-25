@@ -5,7 +5,6 @@ config.font_size = 12.0
 config.tab_max_width = 30
 config.use_fancy_tab_bar = false
 config.scrollback_lines = 100000
--- config.window_decorations = "RESIZE"
 config.window_decorations = "TITLE | RESIZE"
 config.color_scheme = "Github Dark (Gogh)"
 config.hide_tab_bar_if_only_one_tab = true
@@ -57,7 +56,6 @@ config.keys = {
 
 if wezterm.target_triple:find("windows") ~= nil then
   config.default_domain = "WSL:archlinux"
-  config.window_decorations = "TITLE | RESIZE"
 end
 
 return config

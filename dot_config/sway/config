@@ -106,8 +106,8 @@ bindsym XF86AudioRaiseVolume exec ~/.bin/volume.sh up
 bindsym XF86AudioLowerVolume exec ~/.bin/volume.sh down
 
 # Brightness control
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec brightnessctl s +5%
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
 # Quick open stuff.
 bindsym $mod+Return exec wezterm
