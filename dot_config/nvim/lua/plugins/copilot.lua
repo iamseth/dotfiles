@@ -4,10 +4,10 @@ return {
 		opts = {
 			filetypes = { ["*"] = true },
 			panel = {
-				enabled = false,
+				enabled = true,
 			},
 			suggestion = {
-				enabled = false,
+				enabled = true,
 				auto_trigger = false,
 				keymap = {
 					accept_word = false,
