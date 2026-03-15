@@ -20,6 +20,7 @@ vim.opt.updatetime = 250 -- faster completion
 vim.opt.timeoutlen = 300 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.g.mapleader = " " -- set the leader key to space
 vim.g.maplocalleader = " " -- set the local leader key to space
+vim.g.have_nerd_font = false -- set to true on terminals/fonts with Nerd Font glyph support
 
 -- Disable optional language providers we do not use.
 vim.g.loaded_node_provider = 0

@@ -4,13 +4,15 @@
   signingkey = {{ .signingkey | quote }}
 
 [alias]
-  cm = checkout master
+  cm = "!f() { \\\n  if git show-ref --verify --quiet refs/heads/main || git show-ref --verify --quiet refs/remotes/origin/main; then \\\n    git checkout main; \\\n  else \\\n    git checkout master; \\\n  fi; \\\n}; f; git pull"
   s = status -sb
   cb = checkout -b
   b = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
   l = log --pretty=format:'%C(magenta)%h %ad%Cred%d %Creset%s%Cgreen [%an]' --decorate --date=short -10
   last = log -p -1
   uncommit = reset --soft HEAD~1
+  wip = !git add -A && git commit -m 'wip'
+  d = diff --color-words
 
 [init]
   defaultBranch = master

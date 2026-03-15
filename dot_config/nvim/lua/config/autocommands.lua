@@ -19,14 +19,21 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = seth_group,
+	pattern = "*.svelte",
+	callback = function()
+		vim.lsp.buf.format({ async = false })
+	end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = seth_group,
 	callback = function(args)
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		if client and client.name == "gopls" then
-			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = args.buf })
-			vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { buffer = args.buf })
-		end
+		local map_opts = { buffer = args.buf, silent = true }
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", map_opts, { desc = "LSP definition" }))
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", map_opts, { desc = "LSP rename" }))
+		vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, vim.tbl_extend("force", map_opts, { desc = "LSP code action" }))
 	end,
 })
 

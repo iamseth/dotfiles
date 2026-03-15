@@ -2,8 +2,7 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.font_size = 12.0
-config.tab_max_width = 30
-config.use_fancy_tab_bar = false
+-- config.use_fancy_tab_bar = false
 config.scrollback_lines = 100000
 config.window_decorations = "TITLE | RESIZE"
 config.color_scheme = "Github Dark (Gogh)"
@@ -13,6 +12,13 @@ config.font = wezterm.font("JetBrains Mono")
 config.adjust_window_size_when_changing_font_size = false
 config.window_padding = { top = 8, left = 8, right = 8, bottom = 8 }
 config.leader = { key = "l", mods = "CTRL", timeout_milliseconds = 2000 }
+
+
+config.window_frame = {
+  font = wezterm.font { family = 'JetBrains Mono', weight = 'Bold' },
+  font_size = 12.0,
+
+}
 config.keys = {
   -- Navigation between tabs and panes
   { key = "[", mods = "ALT", action = wezterm.action.ActivateTabRelative(-1) },

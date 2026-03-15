@@ -1,4 +1,3 @@
-emulate zsh -c "$(direnv export zsh)"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -55,6 +54,7 @@ alias @documents="cd $HOME/Documents"
 alias @tmp='cd "$(mktemp -d -t dev)"'
 
 eval "$(zoxide init zsh)"
+eval "$(direnv hook zsh)"
 autoload -Uz compinit && compinit
 
 [ -f "$HOME/.p10k.zsh" ] && source "$HOME/.p10k.zsh"
@@ -66,3 +66,4 @@ alias pw='pnpm --filter @rollcall/web'
 alias oc=opencode
 
 alias lg=lazygit
+alias g=git

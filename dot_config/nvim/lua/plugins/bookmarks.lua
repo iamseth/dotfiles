@@ -3,7 +3,7 @@ return {
 		"tomasky/bookmarks.nvim",
 		event = "BufReadPost",
 		opts = {
-			save_file = vim.fn.expand("$HOME/.config/nvim/bookmarks"),
+			save_file = vim.fn.stdpath("data") .. "/bookmarks",
 			on_attach = function(bufnr)
 				local bm = require("bookmarks")
 				local map = vim.keymap.set

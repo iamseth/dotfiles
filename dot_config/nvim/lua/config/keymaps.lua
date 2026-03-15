@@ -16,7 +16,6 @@ end, opts) -- list open buffers
 vim.keymap.set("n", "ff", function()
 	require("telescope.builtin").find_files()
 end, opts) -- find files using telescope
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>", opts) -- vertical split
 vim.keymap.set("n", "<leader>h", ":split<CR>", opts) -- horizontal split
 vim.keymap.set("n", "<leader>w", ":SaveAll<CR>", opts) -- save all buffers
