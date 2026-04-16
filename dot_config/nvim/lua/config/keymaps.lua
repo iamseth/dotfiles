@@ -21,7 +21,15 @@ vim.keymap.set("n", "<leader>h", ":split<CR>", opts) -- horizontal split
 vim.keymap.set("n", "<leader>w", ":SaveAll<CR>", opts) -- save all buffers
 vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", opts) -- open lazygit
 vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts) -- open terminal
-vim.keymap.set("n", "<leader>cc", ":Copilot toggle<CR>", opts) -- toggle copilot
+vim.keymap.set("n", "<leader>cc", function()
+	local ok, client = pcall(require, "copilot.client")
+	if ok and client.is_disabled() then
+		vim.cmd("Copilot enable")
+		return
+	end
+
+	vim.cmd("Copilot toggle")
+end, opts) -- enable copilot, then toggle per buffer
 vim.keymap.set("n", "<C-j>", "<C-d>zz", opts) -- scroll half a page down/up and center the cursor
 vim.keymap.set("n", "<C-k>", "<C-u>zz", opts) -- scroll half a page down/up and center the cursor
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear search highlights

@@ -3,6 +3,7 @@ return {
 		"zbirenbaum/copilot.lua",
 		config = function(_, opts)
 			require("copilot").setup(opts)
+			vim.cmd("Copilot disable")
 		end,
 		opts = {
 			filetypes = { ["*"] = true },
