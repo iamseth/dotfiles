@@ -71,7 +71,12 @@ return {
 		local servers = {
 			gopls = {},
 			svelte = {},
-			ts_ls = {},
+			ts_ls = {
+				root_dir = function(bufnr, on_dir)
+					local root = vim.fs.root(bufnr, { "tsconfig.json", "jsconfig.json", "package.json", ".git" })
+					on_dir(root or vim.fn.getcwd())
+				end,
+			},
 			lua_ls = {
 					-- cmd = { ... },
 					-- filetypes = { ... },
