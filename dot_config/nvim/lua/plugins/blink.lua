@@ -5,7 +5,9 @@ return {
 		lazy = false,
 		opts = {
 			keymap = {
-				preset = "default",
+				preset = "enter",
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
 			},
 			completion = {
 				documentation = {
