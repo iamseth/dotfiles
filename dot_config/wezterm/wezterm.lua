@@ -52,7 +52,7 @@ config.keys = {
 	},
 
   -- Clear scrollback with CTRL+k
-  { key = "k", mods = "CTRL", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
+  { key = "k", mods = "ALT|SHIFT", action = wezterm.action.ClearScrollback("ScrollbackAndViewport") },
 }
 
 if wezterm.target_triple:find("windows") ~= nil then
