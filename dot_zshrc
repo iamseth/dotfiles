@@ -53,9 +53,12 @@ alias @downloads="cd $HOME/Downloads"
 alias @documents="cd $HOME/Documents"
 alias @tmp='cd "$(mktemp -d -t dev)"'
 
+autoload -Uz compinit && compinit
+
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
-autoload -Uz compinit && compinit
+source <(tao completion zsh)
+
 
 [ -f "$HOME/.p10k.zsh" ] && source "$HOME/.p10k.zsh"
 [ -f "$HOME/.local.zsh" ] && source "$HOME/.local.zsh" || :
@@ -67,3 +70,4 @@ alias oc=opencode
 
 alias lg=lazygit
 alias g=git
+alias t=tao

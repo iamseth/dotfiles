@@ -38,3 +38,7 @@
 ## Session efficiency
 - If progress stalls or tool use becomes repetitive, stop and summarize the blocker instead of continuing to search.
 - When a task is complete, end cleanly rather than continuing with extra suggestions or exploration.
+
+
+## Misc
+- Do not commit the `.tao` directory to Git. If this directory exists, always ignore it for Git history. It is local only.

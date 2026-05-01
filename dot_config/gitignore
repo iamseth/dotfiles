@@ -6,3 +6,5 @@ coverage.out
 .prettierignore
 SETH.md
 .obsidian
+.claude/settings.local.json
+.tao
