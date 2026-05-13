@@ -3,7 +3,7 @@
   "notification": true,
   "timeout": 5,
   "showProjectName": true,
-  "showSessionTitle": false,
+  "showSessionTitle": true,
   "showIcon": true,
   "notificationSystem": "osascript",
   "linux": {

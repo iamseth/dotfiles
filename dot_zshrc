@@ -32,11 +32,16 @@ export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
 
 alias cd='z'
+alias g='git'
+alias t='tao'
+alias p='pnpm'
 alias ls='lsd'
 alias vim='nvim'
 alias ll='ls -lh'
 alias k='kubectl'
 alias ch='chezmoi'
+alias oc='opencode'
+alias lg='lazygit'
 alias tree='tree -C'
 alias diff='colordiff'
 alias python='python3'
@@ -59,15 +64,5 @@ eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
 source <(tao completion zsh)
 
-
 [ -f "$HOME/.p10k.zsh" ] && source "$HOME/.p10k.zsh"
 [ -f "$HOME/.local.zsh" ] && source "$HOME/.local.zsh" || :
-alias p=pnpm
-
-alias pw='pnpm --filter @rollcall/web'
-
-alias oc=opencode
-
-alias lg=lazygit
-alias g=git
-alias t=tao
