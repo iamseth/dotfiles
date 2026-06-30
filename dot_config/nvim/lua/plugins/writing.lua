@@ -10,8 +10,8 @@ return {
 		keys = {
 			{ "<leader>mp", "<cmd>RenderMarkdown preview<CR>", desc = "Markdown preview split" },
 		},
-		opts = {
-			render_modes = {},
-		},
+		---@module 'render-markdown'
+		---@type render.md.UserConfig
+		opts = {},
 	},
 }

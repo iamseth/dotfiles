@@ -1,33 +1,13 @@
-
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
-
-export GPG_TTY="${TTY}"
-
-source "${ZINIT_HOME}/zinit.zsh"
-
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-
 setopt HIST_FIND_NO_DUPS
 setopt EXTENDED_HISTORY
 
-HISTFILE="$HOME/.zsh_history"
-
 export EDITOR='nvim'
+export GPG_TTY="${TTY}"
 export HISTSIZE=1000000
 export SAVEHIST="$HISTSIZE"
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
+export HISTFILE="$HOME/.zsh_history"
 export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
 
@@ -37,32 +17,30 @@ alias t='tao'
 alias p='pnpm'
 alias ls='lsd'
 alias vim='nvim'
-alias ll='ls -lh'
+alias ll='lsd -lh'
 alias k='kubectl'
 alias ch='chezmoi'
 alias oc='opencode'
 alias lg='lazygit'
 alias tree='tree -C'
 alias diff='colordiff'
-alias python='python3'
 alias history='history -i 0'
-
-alias cat='bat --paging never --style plain'
-alias myip='curl https://ifconfig.me;echo'
+alias tmp='cd "$(mktemp -d -t dev)"'
 alias weather='curl -s https://wttr.in'
+alias myip='curl https://ifconfig.me;echo'
+alias cat='bat --paging never --style plain'
 alias randomstring=' date +%s | sha256sum | base64 | head -c 32 | tee >(wl-copy); echo'
-alias imgcat='wezterm imgcat --width=50% --resample-filter=nearest --resize=400x300'
 
-alias @desktop="cd $HOME/Desktop"
-alias @downloads="cd $HOME/Downloads"
-alias @documents="cd $HOME/Documents"
-alias @tmp='cd "$(mktemp -d -t dev)"'
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
-autoload -Uz compinit && compinit
-
-eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
-source <(tao completion zsh)
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+eval "$(tao completion zsh)"
 
-[ -f "$HOME/.p10k.zsh" ] && source "$HOME/.p10k.zsh"
 [ -f "$HOME/.local.zsh" ] && source "$HOME/.local.zsh" || :

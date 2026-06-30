@@ -6,7 +6,7 @@ config.tab_max_width = 200
 config.use_fancy_tab_bar = true
 config.scrollback_lines = 100000
 config.window_decorations = "TITLE | RESIZE"
-config.color_scheme = "Github Dark (Gogh)"
+config.color_scheme = 'tokyonight_night'
 config.hide_tab_bar_if_only_one_tab = true
 config.colors = { foreground = "#FFFFFF" }
 config.font = wezterm.font("JetBrains Mono")
