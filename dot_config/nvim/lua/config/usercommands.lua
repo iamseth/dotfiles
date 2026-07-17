@@ -1,3 +1,20 @@
+vim.api.nvim_create_user_command("CompletionToggle", function()
+	vim.g.blink_cmp_enabled = not vim.g.blink_cmp_enabled
+
+	if not vim.g.blink_cmp_enabled then
+		local ok, blink = pcall(require, "blink.cmp")
+		if ok then
+			blink.hide()
+		end
+	end
+
+	vim.notify(
+		"Autocomplete " .. (vim.g.blink_cmp_enabled and "enabled" or "disabled"),
+		vim.log.levels.INFO,
+		{ title = "blink.cmp" }
+	)
+end, {})
+
 vim.api.nvim_create_user_command("SaveAll", function()
 	vim.cmd("wa!")
 	vim.notify("All buffers saved.", vim.log.levels.INFO, { title = "Buffers Written" })

@@ -21,6 +21,7 @@ vim.keymap.set("n", "<leader>h", ":split<CR>", opts) -- horizontal split
 vim.keymap.set("n", "<leader>w", ":SaveAll<CR>", opts) -- save all buffers
 vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", opts) -- open lazygit
 vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts) -- open terminal
+vim.keymap.set("n", "<leader>ac", "<cmd>CompletionToggle<CR>", opts) -- toggle blink.cmp autocomplete
 vim.keymap.set("n", "<leader>cc", function()
 	local ok, client = pcall(require, "copilot.client")
 	if ok and client.is_disabled() then
