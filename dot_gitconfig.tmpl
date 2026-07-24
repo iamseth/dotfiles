@@ -11,14 +11,14 @@
 [alias]
   d = diff
   s = status -sb
-  cb = checkout -b
+  cb = switch -c
   last = log -p -1
   uncommit = reset --soft HEAD~1
   amend = commit -a --amend --no-edit
   wip = !git add -A && git commit -m 'wip'
   ls = diff-tree --no-commit-id --numstat -r
-  cm = !git checkout $(git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||') && git pull
   l = log --pretty=format:'%C(magenta)%h %C(green)%ad %C(white)%s %C(blue)[%an]' --decorate --date=human -10
+  cm = "!f() { branch=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD) || exit; branch=${branch#origin/}; git switch \"$branch\" && git pull --ff-only; }; f"
   b = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
 [init]
   defaultBranch = main
@@ -33,6 +33,7 @@
   line-numbers = true
 {{- end }}
 [push]
+  default = simple
   autoSetupRemote = true
 [pull]
   ff = only
@@ -54,6 +55,7 @@
   whitespace = fix
 [fetch]
   prune = true
+  pruneTags = true
 [branch]
   sort = -committerdate
 [column]
@@ -61,7 +63,12 @@
 [diff]
   algorithm = histogram
   colorMoved = default
+  mnemonicPrefix = true
 [merge]
   conflictstyle = zdiff3
 [rerere]
   enabled = true
+[status]
+  showUntrackedFiles = all
+[help]
+  autocorrect = prompt
