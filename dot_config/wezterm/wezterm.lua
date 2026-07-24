@@ -50,6 +50,8 @@ config.colors = {
 }
 config.keys = {
   -- Navigation between tabs and panes
+  { key = "[", mods = "CMD", action = wezterm.action.ActivateTabRelative(-1) },
+  { key = "]", mods = "CMD", action = wezterm.action.ActivateTabRelative(1) },
   { key = "[", mods = "ALT", action = wezterm.action.ActivateTabRelative(-1) },
   { key = "]", mods = "ALT", action = wezterm.action.ActivateTabRelative(1) },
 	{ key = "h", mods = "ALT", action = wezterm.action.ActivatePaneDirection("Left") },

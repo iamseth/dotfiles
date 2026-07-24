@@ -1,0 +1,37 @@
+add_newline = false
+command_timeout = 1000
+right_format = "$docker_context$aws"
+format = "$hostname$directory$git_branch$git_status$character"
+
+[hostname]
+ssh_only = false
+style = 'bold dimmed green'
+format = '[$ssh_symbol$hostname]($style) '
+aliases = { "Seths-MacBook-Pro" = "mbp" }
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+
+[aws]
+symbol = " "
+format = "[$symbol$profile]($style) "
+
+[git_status]
+format = "([$all_status$ahead_behind]($style)) "
+
+[docker_context]
+disabled = false
+symbol = " "
+format = "[$symbol$context]($style) "
+detect_files = []
+detect_folders = []
+only_with_files = false
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

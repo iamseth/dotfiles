@@ -1,8 +1,8 @@
 Host *
+  ControlPersist 1h
   AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_ed25519
   ControlMaster auto
-  ControlPersist 8h
-  ControlPath ~/.ssh/mux/%h_%p_%r
+  IdentityFile ~/.ssh/id_ed25519
+  ControlPath ~/.ssh/sockets/%h_%p_%r
 
-Include ~/.ssh/conf.d/*
+Include ~/.ssh/*conf

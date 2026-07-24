@@ -13,16 +13,12 @@
   l = log --pretty=format:'%C(magenta)%h %C(green)%ad %C(white)%s %C(blue)[%an]' --decorate --date=human -10
   b = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
   cm = "!f() { \\\n  if git show-ref --verify --quiet refs/heads/main || git show-ref --verify --quiet refs/remotes/origin/main; then \\\n    git checkout main; \\\n  else \\\n    git checkout master; \\\n  fi; \\\n}; f; git pull"
-
   pb = !git fetch --prune && git branch -vv | awk '/: gone]/{print $1}' | xargs -r git branch -d
   ls = diff-tree --no-commit-id --numstat -r
-
   amend = commit -a --amend --no-edit
 
-
-
 [init]
-  defaultBranch = master
+  defaultBranch = main
 
 [core]
   pager = delta
