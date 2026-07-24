@@ -1,6 +1,6 @@
 [user]
   name = Seth Miller
-  email = {{ .email | quote }}
+  email = {{ .email }}
 {{- if .signingkey }}
   signingkey = {{ .signingkey }}
 [commit]
@@ -8,7 +8,6 @@
 [tag]
   gpgsign = true
 {{- end }}
-
 [alias]
   d = diff
   s = status -sb
@@ -19,39 +18,50 @@
   wip = !git add -A && git commit -m 'wip'
   ls = diff-tree --no-commit-id --numstat -r
   cm = !git checkout $(git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||') && git pull
-  pb = !git fetch --prune && git for-each-ref --format '%(refname:short) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -d
   l = log --pretty=format:'%C(magenta)%h %C(green)%ad %C(white)%s %C(blue)[%an]' --decorate --date=human -10
   b = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
-
 [init]
   defaultBranch = main
-
 [core]
   editor = nvim
-  excludesfile = ~/.config/gitignore
-  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  whitespace = trailing-space,cr-at-eol
 {{- if lookPath "delta" }}
   pager = delta
-
 [interactive]
   diffFilter = "delta --color-only"
-
 [delta]
   line-numbers = true
 {{- end }}
-
 [push]
   autoSetupRemote = true
-
+[pull]
+  ff = only
+[rebase]
+  autoStash = true
+  autosquash = true
 [credential]
 {{- if eq .chezmoi.os "darwin" }}
   helper = osxkeychain
 {{- else }}
   helper = cache --timeout=86400
 {{- end }}
-
 [cola]
   fontdiff = Monospace,12,-1,0,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
   fontsize = 12
   theme = default
   icontheme = default
+[apply]
+  whitespace = fix
+[fetch]
+  prune = true
+[branch]
+  sort = -committerdate
+[column]
+  ui = auto
+[diff]
+  algorithm = histogram
+  colorMoved = default
+[merge]
+  conflictstyle = zdiff3
+[rerere]
+  enabled = true
