@@ -1,17 +1,43 @@
-setopt HIST_FIND_NO_DUPS
+bindkey -e
+
+# History
 setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_ALL_DUPS
+setopt INC_APPEND_HISTORY_TIME
+
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE="$HOME/.zsh_history"
+
+# Paths
+typeset -U path PATH
+typeset -U fpath FPATH
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  HOMEBREW_PREFIX=/opt/homebrew
+  export HOMEBREW_PREFIX
+  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX"
+  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+  path=("$HOMEBREW_PREFIX/bin" $path)
+  fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
+fi
 
 export EDITOR='nvim'
-export GPG_TTY="${TTY}"
-export HISTSIZE=1000000
-export SAVEHIST="$HISTSIZE"
 export GOPATH="$HOME/.go"
-export GOBIN="$GOPATH/bin"
-export HISTFILE="$HOME/.zsh_history"
-export FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
-export PATH="$HOME/.bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
+path=(
+  "$HOME/.bin"
+  "$GOPATH/bin"
+  $path
+)
 
-alias cd='z'
+if [[ -o interactive ]] && GPG_TTY=$(tty 2>/dev/null); then
+  export GPG_TTY
+fi
+
 alias g='git'
 alias t='tao'
 alias p='pnpm'
@@ -24,23 +50,58 @@ alias oc='opencode'
 alias lg='lazygit'
 alias tree='tree -C'
 alias diff='colordiff'
-alias history='history -i 0'
-alias tmp='cd "$(mktemp -d -t dev)"'
-alias weather='curl -s https://wttr.in'
-alias myip='curl https://ifconfig.me;echo'
+alias history='fc -lDi 1'
+
+alias weather='curl -fsSL https://wttr.in'
+alias myip='curl -fsSL https://ifconfig.me/ip; print'
 alias cat='bat --paging never --style plain'
-alias randomstring=' date +%s | sha256sum | base64 | head -c 32 | tee >(wl-copy); echo'
+
+randomstring() {
+  emulate -L zsh
+
+  local len=${1:-32}
+  local str
+
+  if [[ "$len" != <1-> ]]; then
+    print -u2 -- "usage: randomstring [positive-length]"
+    return 2
+  fi
+
+  str=$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c "$len")
+
+  if (( $+commands[pbcopy] )); then
+    print -rn -- "$str" | pbcopy
+  elif (( $+commands[wl-copy] )); then
+    print -rn -- "$str" | wl-copy
+  elif (( $+commands[xclip] )); then
+    print -rn -- "$str" | xclip -selection clipboard
+  elif (( $+commands[xsel] )); then
+    print -rn -- "$str" | xsel --clipboard --input
+  fi
+
+  print -r -- "$str"
+}
+
+[[ -d "$HOME/.ssh/sockets" ]] && mkdir -p "$HOME/.ssh/sockets"
+[[ -O "$HOME/.ssh/sockets" ]] && chmod 700 "$HOME/.ssh/sockets"
 
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
+() {
+  local dump="${ZDOTDIR:-$HOME}/.zcompdump"
+  local -a fresh=("$dump"(N.mh-24))
 
-eval "$(direnv hook zsh)"
-eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
-command -v tao &> /dev/null && eval "$(tao completion zsh)"
+  if (( $#fresh )); then
+    compinit -C -d "$dump"
+  else
+    compinit -d "$dump"
+  fi
+}
 
-[ -f "$HOME/.local.zsh" ] && source "$HOME/.local.zsh" || :
+
+command -v direnv   &>/dev/null && eval "$(direnv hook zsh)"
+command -v starship &>/dev/null && eval "$(starship init zsh)"
+command -v tao      &>/dev/null && eval "$(tao completion zsh)"
+command -v zoxide   &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
+
+# Local overrides allowing final say over aliases, variables, and functions. Ignore errors.
+[[ -f "$HOME/.local.zsh" ]] && source "$HOME/.local.zsh"
