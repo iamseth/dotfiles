@@ -1,48 +1,54 @@
 [user]
   name = Seth Miller
   email = {{ .email | quote }}
-  signingkey = {{ .signingkey | quote }}
+{{- if .signingkey }}
+  signingkey = {{ .signingkey }}
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
+{{- end }}
 
 [alias]
+  d = diff
   s = status -sb
   cb = checkout -b
   last = log -p -1
-  d = diff --color-words
   uncommit = reset --soft HEAD~1
+  amend = commit -a --amend --no-edit
   wip = !git add -A && git commit -m 'wip'
+  ls = diff-tree --no-commit-id --numstat -r
+  cm = !git checkout $(git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||') && git pull
+  pb = !git fetch --prune && git for-each-ref --format '%(refname:short) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -d
   l = log --pretty=format:'%C(magenta)%h %C(green)%ad %C(white)%s %C(blue)[%an]' --decorate --date=human -10
   b = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
-  cm = "!f() { \\\n  if git show-ref --verify --quiet refs/heads/main || git show-ref --verify --quiet refs/remotes/origin/main; then \\\n    git checkout main; \\\n  else \\\n    git checkout master; \\\n  fi; \\\n}; f; git pull"
-  pb = !git fetch --prune && git branch -vv | awk '/: gone]/{print $1}' | xargs -r git branch -d
-  ls = diff-tree --no-commit-id --numstat -r
-  amend = commit -a --amend --no-edit
 
 [init]
   defaultBranch = main
 
 [core]
-  pager = delta
   editor = nvim
   excludesfile = ~/.config/gitignore
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+{{- if lookPath "delta" }}
+  pager = delta
 
 [interactive]
   diffFilter = "delta --color-only"
 
 [delta]
-  #navigate = true
-  #side-by-side = true
   line-numbers = true
-  #syntax-theme = "OneHalfDark"
-
-[commit]
-  gpgsign = true
+{{- end }}
 
 [push]
   autoSetupRemote = true
 
 [credential]
-	helper = store
+{{- if eq .chezmoi.os "darwin" }}
+  helper = osxkeychain
+{{- else }}
+  helper = cache --timeout=86400
+{{- end }}
 
 [cola]
   fontdiff = Monospace,12,-1,0,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
