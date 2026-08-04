@@ -82,7 +82,7 @@ randomstring() {
   print -r -- "$str"
 }
 
-[[ -d "$HOME/.ssh/sockets" ]] && mkdir -p "$HOME/.ssh/sockets"
+[[ -d "$HOME/.ssh/sockets" ]] || mkdir -p "$HOME/.ssh/sockets"
 [[ -O "$HOME/.ssh/sockets" ]] && chmod 700 "$HOME/.ssh/sockets"
 
 autoload -Uz compinit

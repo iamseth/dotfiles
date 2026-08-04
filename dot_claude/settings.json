@@ -1,0 +1,59 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(du:*)",
+      "Bash(sort:*)",
+      "Bash(head:*)",
+      "Bash(cat:*)",
+      "Bash(node:*)",
+      "Bash(python3:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm ls *)",
+      "Skill(code-review)",
+      "Bash(npx vitest:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx tsup:*)",
+      "Bash(npx --version)",
+      "Bash(git:*)",
+      "Bash(gh api:*)",
+      "Bash(gh pr:*)",
+      "Bash(grep:*)",
+      "Bash(zip:*)",
+      "Bash(unzip:*)",
+      "Bash(pip3 install:*)",
+      "Bash(test:*)",
+      "Bash(aws sts get-caller-identity:*)",
+      "Bash(AWS_PROFILE=dev aws sts:*)"
+    ]
+  },
+  "model": "claude-fable-5[1m]",
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
+}
