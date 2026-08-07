@@ -34,7 +34,6 @@
       "Bash(AWS_PROFILE=dev aws sts:*)"
     ]
   },
-  "model": "claude-fable-5[1m]",
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true
@@ -55,5 +54,6 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "claude-fable-5[1m]"
 }
