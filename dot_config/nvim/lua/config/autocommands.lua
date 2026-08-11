@@ -1,5 +1,72 @@
 local seth_group = vim.api.nvim_create_augroup("seth-config", { clear = true })
 
+vim.api.nvim_create_autocmd({ "InsertLeavePre", "TextChanged", "TextChangedP" }, {
+	group = seth_group,
+	pattern = "*.md",
+	callback = function(args)
+		if
+			vim.bo[args.buf].modified
+			and not vim.bo[args.buf].readonly
+			and vim.api.nvim_buf_get_name(args.buf) ~= ""
+		then
+			vim.api.nvim_buf_call(args.buf, function()
+				vim.cmd("silent write")
+			end)
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = seth_group,
+	pattern = "markdown",
+	callback = function(args)
+		local map_opts = { buffer = args.buf, silent = true }
+
+		vim.keymap.set(
+			"n",
+			"<leader>ac",
+			"o<!-- AGENT:  --><Left><Left><Left><Left>",
+			vim.tbl_extend("force", map_opts, { desc = "Add AGENT comment" })
+		)
+
+		vim.keymap.set("n", "<leader>aa", function()
+			local filename = vim.api.nvim_buf_get_name(args.buf)
+			local directory = filename ~= "" and vim.fs.dirname(filename) or vim.fn.getcwd()
+			local root_result =
+				vim.system({ "git", "-C", directory, "rev-parse", "--show-toplevel" }, { text = true }):wait()
+
+			if root_result.code ~= 0 then
+				vim.notify("Current buffer is not in a git repository", vim.log.levels.WARN)
+				return
+			end
+
+			local root = vim.trim(root_result.stdout)
+			local grep_result =
+				vim.system({ "git", "-C", root, "grep", "-n", "--column", "--no-color", "AGENT:" }, { text = true })
+					:wait()
+			local items = {}
+
+			for line in grep_result.stdout:gmatch("[^\r\n]+") do
+				local path, lnum, col, text = line:match("^(.-):(%d+):(%d+):(.*)$")
+				if path then
+					items[#items + 1] = {
+						filename = root .. "/" .. path,
+						lnum = tonumber(lnum),
+						col = tonumber(col),
+						text = text,
+					}
+				end
+			end
+
+			vim.fn.setqflist({}, "r", {
+				title = "AGENT markers: " .. root,
+				items = items,
+			})
+			vim.cmd("copen")
+		end, vim.tbl_extend("force", map_opts, { desc = "List AGENT comments" }))
+	end,
+})
+
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = seth_group,
 	pattern = "*.go",

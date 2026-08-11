@@ -16,6 +16,7 @@ vim.opt.iskeyword:append({ "-", "_", "@" }) -- treat dash, underscore and @ as p
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.undofile = true -- Enable persistent undo
+vim.opt.autowriteall = true -- automatically save markdown edits for external previews
 vim.opt.updatetime = 250 -- faster completion
 vim.opt.timeoutlen = 300 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.g.mapleader = " " -- set the leader key to space
