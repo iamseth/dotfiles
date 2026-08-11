@@ -66,6 +66,7 @@ local state = {
 		win = -1,
 	},
 	zen_buf = -1,
+	zen_lualine_hidden = false,
 }
 
 local zen_group = vim.api.nvim_create_augroup("seth-zen-mode", { clear = true })
@@ -93,16 +94,43 @@ vim.api.nvim_create_autocmd("User", {
 				vim.cmd("PencilOff")
 			end)
 		end
+
+		if state.zen_lualine_hidden then
+			local has_lualine, lualine = pcall(require, "lualine")
+			if has_lualine then
+				lualine.hide({ unhide = true })
+			end
+			state.zen_lualine_hidden = false
+		end
 	end,
 })
 
 vim.api.nvim_create_user_command("ZenToggle", function()
-	if state.zen_buf == -1 and vim.bo.filetype ~= "markdown" then
+	local entering = state.zen_buf == -1
+	if entering and vim.bo.filetype ~= "markdown" then
 		vim.notify("Zen mode is only available for Markdown buffers.", vim.log.levels.WARN, { title = "Zen Mode" })
 		return
 	end
 
-	vim.cmd("Goyo")
+	if entering then
+		local has_lualine, lualine = pcall(require, "lualine")
+		if has_lualine then
+			lualine.hide()
+			state.zen_lualine_hidden = true
+		end
+	end
+
+	local ok, err = pcall(vim.cmd, "Goyo")
+	if not ok then
+		if state.zen_lualine_hidden then
+			local has_lualine, lualine = pcall(require, "lualine")
+			if has_lualine then
+				lualine.hide({ unhide = true })
+			end
+			state.zen_lualine_hidden = false
+		end
+		error(err)
+	end
 end, {})
 
 local function create_floating_window(opts)
