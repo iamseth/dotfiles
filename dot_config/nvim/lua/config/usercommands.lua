@@ -65,28 +65,44 @@ local state = {
 		buf = -1,
 		win = -1,
 	},
-	zen_mode = false,
+	zen_buf = -1,
 }
 
-vim.api.nvim_create_user_command("ZenToggle", function()
-	local has_lualine, lualine = pcall(require, "lualine")
-	if state.zen_mode then
-		vim.cmd("Goyo!")
-		vim.cmd("Limelight!")
-		vim.cmd("PencilToggle")
-		if has_lualine and lualine.hide then
-			lualine.hide({ unhide = true })
-		end
-		state.zen_mode = false
-	else
-		vim.cmd("Goyo")
+local zen_group = vim.api.nvim_create_augroup("seth-zen-mode", { clear = true })
+
+vim.api.nvim_create_autocmd("User", {
+	group = zen_group,
+	pattern = "GoyoEnter",
+	callback = function()
+		state.zen_buf = vim.api.nvim_get_current_buf()
+		vim.cmd("PencilSoft")
 		vim.cmd("Limelight")
-		vim.cmd("PencilToggle")
-		if has_lualine and lualine.hide then
-			lualine.hide()
+	end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+	group = zen_group,
+	pattern = "GoyoLeave",
+	callback = function()
+		pcall(vim.cmd, "Limelight!")
+
+		local buf = state.zen_buf
+		state.zen_buf = -1
+		if vim.api.nvim_buf_is_valid(buf) then
+			pcall(vim.api.nvim_buf_call, buf, function()
+				vim.cmd("PencilOff")
+			end)
 		end
-		state.zen_mode = true
+	end,
+})
+
+vim.api.nvim_create_user_command("ZenToggle", function()
+	if state.zen_buf == -1 and vim.bo.filetype ~= "markdown" then
+		vim.notify("Zen mode is only available for Markdown buffers.", vim.log.levels.WARN, { title = "Zen Mode" })
+		return
 	end
+
+	vim.cmd("Goyo")
 end, {})
 
 local function create_floating_window(opts)
