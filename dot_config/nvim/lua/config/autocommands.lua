@@ -24,16 +24,16 @@ vim.api.nvim_create_autocmd("FileType", {
 
 		vim.keymap.set(
 			"n",
-			"<leader>ac",
+			"<leader>am",
 			"o<!-- AGENT:  --><Left><Left><Left><Left>",
-			vim.tbl_extend("force", map_opts, { desc = "Add AGENT comment" })
+			vim.tbl_extend("force", map_opts, { desc = "Add AGENT marker" })
 		)
 
-		vim.keymap.set("n", "<leader>aa", function()
+		vim.keymap.set("n", "<leader>al", function()
 			local filename = vim.api.nvim_buf_get_name(args.buf)
 			local directory = filename ~= "" and vim.fs.dirname(filename) or vim.fn.getcwd()
-			local root_result =
-				vim.system({ "git", "-C", directory, "rev-parse", "--show-toplevel" }, { text = true }):wait()
+			local root_result = vim.system({ "git", "-C", directory, "rev-parse", "--show-toplevel" }, { text = true })
+				:wait()
 
 			if root_result.code ~= 0 then
 				vim.notify("Current buffer is not in a git repository", vim.log.levels.WARN)
@@ -41,9 +41,10 @@ vim.api.nvim_create_autocmd("FileType", {
 			end
 
 			local root = vim.trim(root_result.stdout)
-			local grep_result =
-				vim.system({ "git", "-C", root, "grep", "-n", "--column", "--no-color", "AGENT:" }, { text = true })
-					:wait()
+			local grep_result = vim.system(
+				{ "git", "-C", root, "grep", "-n", "--column", "--no-color", "AGENT:" },
+				{ text = true }
+			):wait()
 			local items = {}
 
 			for line in grep_result.stdout:gmatch("[^\r\n]+") do
@@ -63,34 +64,37 @@ vim.api.nvim_create_autocmd("FileType", {
 				items = items,
 			})
 			vim.cmd("copen")
-		end, vim.tbl_extend("force", map_opts, { desc = "List AGENT comments" }))
+		end, vim.tbl_extend("force", map_opts, { desc = "List AGENT markers" }))
 	end,
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = seth_group,
 	pattern = "*.go",
-	callback = function()
-		local params = vim.lsp.util.make_range_params()
+	callback = function(args)
+		local gopls = vim.lsp.get_clients({ bufnr = args.buf, name = "gopls" })[1]
+		if not gopls then
+			return
+		end
+
+		local params = vim.lsp.util.make_range_params(0, gopls.offset_encoding)
 		params.context = { only = { "source.organizeImports" } }
-		local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-		for cid, res in pairs(result or {}) do
-			for _, r in pairs(res.result or {}) do
-				if r.edit then
-					local enc = (vim.lsp.get_clients({ id = cid })[1] or {}).offset_encoding or "utf-16"
-					vim.lsp.util.apply_workspace_edit(r.edit, enc)
-				end
+		local response = gopls:request_sync("textDocument/codeAction", params, 1000, args.buf)
+		for _, action in pairs((response or {}).result or {}) do
+			if action.edit then
+				vim.lsp.util.apply_workspace_edit(action.edit, gopls.offset_encoding)
 			end
 		end
-		vim.lsp.buf.format({ async = false })
+
+		vim.lsp.buf.format({ async = false, bufnr = args.buf, name = "gopls" })
 	end,
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = seth_group,
 	pattern = "*.svelte",
-	callback = function()
-		vim.lsp.buf.format({ async = false })
+	callback = function(args)
+		vim.lsp.buf.format({ async = false, bufnr = args.buf, name = "svelte" })
 	end,
 })
 
@@ -98,9 +102,30 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = seth_group,
 	callback = function(args)
 		local map_opts = { buffer = args.buf, silent = true }
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", map_opts, { desc = "LSP definition" }))
-		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", map_opts, { desc = "LSP rename" }))
-		vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, vim.tbl_extend("force", map_opts, { desc = "LSP code action" }))
+		vim.keymap.set(
+			"n",
+			"gd",
+			vim.lsp.buf.definition,
+			vim.tbl_extend("force", map_opts, { desc = "LSP definition" })
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>lr",
+			vim.lsp.buf.rename,
+			vim.tbl_extend("force", map_opts, { desc = "LSP rename" })
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>la",
+			vim.lsp.buf.code_action,
+			vim.tbl_extend("force", map_opts, { desc = "LSP code action" })
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>ld",
+			vim.diagnostic.setloclist,
+			vim.tbl_extend("force", map_opts, { desc = "Open diagnostic location list" })
+		)
 	end,
 })
 

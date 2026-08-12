@@ -42,7 +42,6 @@ return {
 							-- Close on <esc> in normal mode
 							["<esc>"] = actions.close,
 						},
-
 					},
 				},
 			})

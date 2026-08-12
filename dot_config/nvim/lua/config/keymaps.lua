@@ -1,28 +1,29 @@
-local opts = { noremap = true, silent = true }
+local function map(mode, lhs, rhs, desc)
+	vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
+end
 
-vim.keymap.set("n", "qq", ":SmartQuit<CR>", opts) -- smart quit current context
-vim.keymap.set("t", "qq", "<C-\\><C-N><cmd>SmartQuit<CR>", opts) -- smart quit terminal context
-vim.keymap.set("n", "-", ":Oil<CR>", opts) -- open oil
-vim.keymap.set("n", "J", "<C-w>j", opts) -- move to window below
-vim.keymap.set("n", "K", "<C-w>k", opts) -- move to window above
-vim.keymap.set("n", "H", "<C-w>h", opts) -- move to window left
-vim.keymap.set("n", "L", "<C-w>l", opts) -- move to window right
-vim.keymap.set("n", "ss", function()
+map("n", "<leader>qq", "<cmd>SmartQuit<CR>", "Smart quit current context")
+map("t", "<leader>qq", "<C-\\><C-N><cmd>SmartQuit<CR>", "Smart quit terminal context")
+map("n", "-", "<cmd>Oil<CR>", "Open Oil")
+map("n", "<C-h>", "<C-w>h", "Move to window left")
+map("n", "<C-j>", "<C-w>j", "Move to window below")
+map("n", "<C-k>", "<C-w>k", "Move to window above")
+map("n", "<C-l>", "<C-w>l", "Move to window right")
+map("n", "<leader>fg", function()
 	require("telescope.builtin").grep_string()
-end, opts) -- search in current directory
-vim.keymap.set("n", "sl", function()
+end, "Search word under cursor")
+map("n", "<leader>fb", function()
 	require("telescope.builtin").buffers()
-end, opts) -- list open buffers
-vim.keymap.set("n", "ff", function()
+end, "List open buffers")
+map("n", "<leader>ff", function()
 	require("telescope.builtin").find_files()
-end, opts) -- find files using telescope
-vim.keymap.set("n", "<leader>v", ":vsplit<CR>", opts) -- vertical split
-vim.keymap.set("n", "<leader>h", ":split<CR>", opts) -- horizontal split
-vim.keymap.set("n", "<leader>w", ":SaveAll<CR>", opts) -- save all buffers
-vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", opts) -- open lazygit
-vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts) -- open terminal
-vim.keymap.set("n", "<leader>ac", "<cmd>CompletionToggle<CR>", opts) -- toggle blink.cmp autocomplete
-vim.keymap.set("n", "<leader>cc", function()
+end, "Find files")
+map("n", "<leader>v", "<cmd>vsplit<CR>", "Vertical split")
+map("n", "<leader>h", "<cmd>split<CR>", "Horizontal split")
+map("n", "<leader>w", "<cmd>SaveAll<CR>", "Write all buffers")
+map("n", "<leader>g", "<cmd>LazyGit<CR>", "Open LazyGit")
+map("n", "<leader>t", "<cmd>Floaterminal<CR>", "Toggle floating terminal")
+map("n", "<leader>cc", function()
 	local ok, client = pcall(require, "copilot.client")
 	if ok and client.is_disabled() then
 		vim.cmd("Copilot enable")
@@ -30,8 +31,7 @@ vim.keymap.set("n", "<leader>cc", function()
 	end
 
 	vim.cmd("Copilot toggle")
-end, opts) -- enable copilot, then toggle per buffer
-vim.keymap.set("n", "<C-j>", "<C-d>zz", opts) -- scroll half a page down/up and center the cursor
-vim.keymap.set("n", "<C-k>", "<C-u>zz", opts) -- scroll half a page down/up and center the cursor
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear search highlights
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+end, "Toggle Copilot")
+map("n", "<C-d>", "<C-d>zz", "Scroll down and center")
+map("n", "<C-u>", "<C-u>zz", "Scroll up and center")
+map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search highlights")

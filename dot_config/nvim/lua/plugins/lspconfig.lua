@@ -16,22 +16,23 @@ return {
 			{ "j-hui/fidget.nvim", opts = {} },
 
 			-- Allows extra capabilities provided by blink.cmp
-			{ "saghen/blink.cmp", version = '*' },
-
+			{ "saghen/blink.cmp", version = "*" },
 		},
 
 		config = function()
-			local diagnostic_signs = vim.g.have_nerd_font and {
-				[vim.diagnostic.severity.ERROR] = "󰅚 ",
-				[vim.diagnostic.severity.WARN] = "󰀪 ",
-				[vim.diagnostic.severity.INFO] = "󰋽 ",
-				[vim.diagnostic.severity.HINT] = "󰌶 ",
-			} or {
-				[vim.diagnostic.severity.ERROR] = "E ",
-				[vim.diagnostic.severity.WARN] = "W ",
-				[vim.diagnostic.severity.INFO] = "I ",
-				[vim.diagnostic.severity.HINT] = "H ",
-			}
+			local diagnostic_signs = vim.g.have_nerd_font
+					and {
+						[vim.diagnostic.severity.ERROR] = "󰅚 ",
+						[vim.diagnostic.severity.WARN] = "󰀪 ",
+						[vim.diagnostic.severity.INFO] = "󰋽 ",
+						[vim.diagnostic.severity.HINT] = "󰌶 ",
+					}
+				or {
+					[vim.diagnostic.severity.ERROR] = "E ",
+					[vim.diagnostic.severity.WARN] = "W ",
+					[vim.diagnostic.severity.INFO] = "I ",
+					[vim.diagnostic.severity.HINT] = "H ",
+				}
 
 			vim.diagnostic.config({
 				severity_sort = true,
@@ -68,16 +69,16 @@ return {
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-		local servers = {
-			gopls = {},
-			svelte = {},
-			ts_ls = {
-				root_dir = function(bufnr, on_dir)
-					local root = vim.fs.root(bufnr, { "tsconfig.json", "jsconfig.json", "package.json", ".git" })
-					on_dir(root or vim.fn.getcwd())
-				end,
-			},
-			lua_ls = {
+			local servers = {
+				gopls = {},
+				svelte = {},
+				ts_ls = {
+					root_dir = function(bufnr, on_dir)
+						local root = vim.fs.root(bufnr, { "tsconfig.json", "jsconfig.json", "package.json", ".git" })
+						on_dir(root or vim.fn.getcwd())
+					end,
+				},
+				lua_ls = {
 					-- cmd = { ... },
 					-- filetypes = { ... },
 					-- capabilities = {},
@@ -113,19 +114,14 @@ return {
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-				automatic_installation = false,
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for ts_ls)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
+				automatic_enable = false,
 			})
+
+			for server_name, server in pairs(servers) do
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				vim.lsp.config(server_name, server)
+				vim.lsp.enable(server_name)
+			end
 		end,
 	},
 }

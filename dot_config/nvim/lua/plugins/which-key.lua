@@ -3,7 +3,7 @@ return {
 		"folke/which-key.nvim",
 		event = "VimEnter",
 		opts = {
-			delay = 0,
+			delay = 200,
 			icons = {
 				mappings = vim.g.have_nerd_font,
 				keys = vim.g.have_nerd_font and {} or {
@@ -38,11 +38,10 @@ return {
 				},
 			},
 			spec = {
+				{ "<leader>a", group = "Agent" },
 				{ "<leader>c", group = "Copilot" },
-				{ "<leader>g", group = "Git" },
-				{ "<leader>t", group = "Terminal" },
-				{ "<leader>v", group = "Split" },
-				{ "<leader>w", group = "Write" },
+				{ "<leader>f", group = "Find" },
+				{ "<leader>l", group = "LSP" },
 			},
 		},
 	},
