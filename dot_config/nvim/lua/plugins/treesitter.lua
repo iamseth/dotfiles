@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
+		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
 		opts = function()
 			local ensure_installed = {

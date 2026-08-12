@@ -1,6 +1,6 @@
 local seth_group = vim.api.nvim_create_augroup("seth-config", { clear = true })
 
-vim.api.nvim_create_autocmd({ "InsertLeavePre", "TextChanged", "TextChangedP" }, {
+vim.api.nvim_create_autocmd({ "InsertLeavePre", "FocusLost" }, {
 	group = seth_group,
 	pattern = "*.md",
 	callback = function(args)

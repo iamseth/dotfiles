@@ -1,6 +1,7 @@
 return {
 	{
 		"zbirenbaum/copilot.lua",
+		event = "InsertEnter",
 		config = function(_, opts)
 			require("copilot").setup(opts)
 		end,

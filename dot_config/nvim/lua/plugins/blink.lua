@@ -4,7 +4,7 @@ return {
 	{
 		"saghen/blink.cmp",
 		version = "*",
-		lazy = false,
+		event = "InsertEnter",
 		opts = {
 			enabled = function()
 				return vim.g.blink_cmp_enabled == true

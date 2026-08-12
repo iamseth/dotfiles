@@ -16,7 +16,7 @@ vim.api.nvim_create_user_command("CompletionToggle", function()
 end, {})
 
 vim.api.nvim_create_user_command("SaveAll", function()
-	vim.cmd("wa!")
+	vim.cmd("wall")
 	vim.notify("All buffers saved.", vim.log.levels.INFO, { title = "Buffers Written" })
 end, {})
 
