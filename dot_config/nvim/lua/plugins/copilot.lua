@@ -21,7 +21,7 @@ return {
 				keymap = {
 					accept_word = false,
 					accept_line = false,
-					accept = "<M-l>",
+					accept = "<S-Tab>",
 					dismiss = "<C-]>",
 				},
 			},

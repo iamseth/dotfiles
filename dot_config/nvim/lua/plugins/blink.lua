@@ -12,7 +12,7 @@ return {
 			keymap = {
 				preset = "enter",
 				["<Tab>"] = { "select_next", "fallback" },
-				["<S-Tab>"] = { "select_prev", "fallback" },
+				["<S-Tab>"] = false,
 			},
 			completion = {
 				documentation = {
