@@ -1,0 +1,32 @@
+directory: /storage/music
+library: ~/.config/beets/library.db
+statefile: ~/.config/beets/state.pickle
+
+plugins:
+  - musicbrainz
+  - lyrics
+  - fetchart
+  - embedart
+  - web
+
+import:
+  move: yes
+  quiet: yes
+  quiet_fallback: skip
+  bell: yes
+
+lyrics:
+  sources: [lrclib]
+
+match:
+  preferred:
+    countries: ['US', 'GB|UK']
+    media: ['CD', 'Digital Media|File']
+    original_year: yes
+  strong_rec_thresh: 0.10   # auto-accept only >= 90% similarity
+
+web:
+  host: 0.0.0.0
+  port: 8337
+  readonly: true
+  reverse_proxy: false
