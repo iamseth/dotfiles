@@ -50,11 +50,22 @@ alias oc='opencode'
 alias lg='lazygit'
 alias tree='tree -C'
 alias diff='colordiff'
+
 alias history='fc -lDi 1'
 
+alias mbp='herdr --remote mbp --handoff'
 alias weather='curl -fsSL https://wttr.in'
 alias myip='curl -fsSL https://ifconfig.me/ip; print'
 alias cat='bat --paging never --style plain'
+
+
+# alias clean_pacman_packages='sudo pacman -Rns $(pacman -Qtdq)'
+
+list_large_packages() {
+  local limit=${1:-20}
+  pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -rh | head -n $limit
+}
+
 
 randomstring() {
   emulate -L zsh
@@ -105,5 +116,3 @@ command -v zoxide   &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
 
 # Local overrides allowing final say over aliases, variables, and functions. Ignore errors.
 [[ -f "$HOME/.local.zsh" ]] && source "$HOME/.local.zsh"
-
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
