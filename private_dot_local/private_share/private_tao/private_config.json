@@ -1,0 +1,14 @@
+{
+  "schema": "tao.config.v1",
+  "settings": {
+    "agent": "pi",
+    "models": {
+      "effort": "medium",
+      "merge_review_effort": "high",
+      "resolver_effort": "high",
+      "review_effort": "high",
+      "run_effort": "medium"
+    },
+    "review_agent": "claude"
+  }
+}

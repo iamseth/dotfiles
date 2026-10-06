@@ -9,3 +9,16 @@ coverage.out
 .ruby-version
 SETH.md
 .tao
+tools/scripts/zzz_tmp_ferpa_probe.ts
+tools/scripts/zzz_tmp_ferpa_probe2.ts
+tools/scripts/zz_gr_fixed.cjs
+tools/scripts/zz_gradreq_compare.ts
+tools/scripts/zz_gradreq_count.ts
+tools/scripts/zz_gradreq_fiximpact.ts
+tools/scripts/zz_gradreq_population.ts
+tools/scripts/zz_gradreq_probe.ts
+tools/scripts/zz_gradreq_trace.ts
+tools/scripts/zz_probe_students.json
+tools/scripts/zz_pop_grade12.json
+*.pyc
+*.tfplan
