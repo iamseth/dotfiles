@@ -53,7 +53,7 @@ alias diff='colordiff'
 
 alias history='fc -lDi 1'
 
-alias mbp='herdr --remote mbp --handoff'
+alias mbp='herdr --remote 192.168.2.27 --handoff'
 alias weather='curl -fsSL https://wttr.in'
 alias myip='curl -fsSL https://ifconfig.me/ip; print'
 alias cat='bat --paging never --style plain'
