@@ -122,3 +122,10 @@ if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)
 export DEVKITPRO=/opt/devkitpro
 export DEVKITARM=/opt/devkitpro/devkitARM
 export PATH="$DEVKITPRO/tools/bin:$PATH"
+
+export ANSIBLE_NOCOWS=1
+export ANSIBLE_DISPLAY_OK_HOSTS=false
+export ANSIBLE_DISPLAY_SKIPPED_HOSTS=false
+export ANSIBLE_CALLBACK_RESULT_FORMAT=yaml
+export ANSIBLE_STDOUT_CALLBACK=community.general.dense
+export ANSIBLE_CALLBACKS_ENABLED=ansible.posix.profile_tasks,ansible.posix.timer
